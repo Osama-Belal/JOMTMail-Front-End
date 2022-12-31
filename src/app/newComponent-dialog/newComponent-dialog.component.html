@@ -5,24 +5,25 @@
       <mat-form-field class="field">
         <mat-label>To</mat-label>
         <input matInput placeholder="pat@jomt.com" formControlName="receiver" required>
-        <mat-error *ngIf="mailReceiverError()">{{mailReceiverErrorMessage()}}</mat-error>
+        <mat-error *ngIf="fieldError('receiver', mailGroup)">{{fieldErrorMessage('receiver', mailGroup)}}</mat-error>
       </mat-form-field>
       
       <mat-form-field  class="field">
         <mat-label>Subject</mat-label>
         <input matInput placeholder="What's this all about?" formControlName="subject"  required>
-        <mat-error *ngIf="mailSubjectError()">{{mailSubjectErrorMessage()}}</mat-error>
+        <mat-error *ngIf="fieldError('subject', mailGroup)">{{fieldErrorMessage('subject', mailGroup)}}</mat-error>
       </mat-form-field>
         
       <mat-form-field class="mailBody">
         <mat-label>Write Your Message</mat-label>
         <textarea matInput placeholder="Always starts with kind words" formControlName="body" required></textarea>
-        <mat-error *ngIf="mailBodyError()">{{mailBodyErrorMessage()}}</mat-error>
+        <mat-error *ngIf="fieldError('body', mailGroup)">{{fieldErrorMessage('body', mailGroup)}}</mat-error>
       </mat-form-field>
   
       <div class="flex icons">
         <button mat-raised-button  [color]="'primary'" (click)="submitMail()"
-          [disabled]="mailBodyError() || mailSubjectError() || mailReceiverError()">
+          [disabled]="fieldError('receiver', mailGroup) || 
+          fieldError('subject', mailGroup) || fieldError('body', mailGroup)">
           Send Now<mat-icon>check</mat-icon>
         </button>
         <button mat-icon-button ><mat-icon>attach_file</mat-icon></button>
@@ -49,10 +50,11 @@
       <mat-form-field class="field">
         <mat-label>Name</mat-label>
         <input matInput placeholder="Folder Name" formControlName="name" required>
-        <mat-error *ngIf="folderError()">{{folderNameErrorMessage()}}</mat-error>
+        <mat-error *ngIf="fieldError('name', folderGroup)">{{fieldErrorMessage('name', folderGroup)}}</mat-error>
       </mat-form-field>
   
-      <button mat-raised-button [color]="'primary'" (click)="submitFolder()" [disabled]="folderError()">
+      <button mat-raised-button [color]="'primary'" (click)="submitFolder()" 
+      [disabled]="fieldError('name', folderGroup)">
         Create<mat-icon>check</mat-icon>
       </button>
   
@@ -72,17 +74,17 @@
       <mat-form-field class="field">
         <mat-label>Name</mat-label>
         <input matInput placeholder="Contact Name" formControlName="name" required>
-        <mat-error *ngIf="contactNameError()">{{contactNameErrorMessage()}}</mat-error>
+        <mat-error *ngIf="fieldError('name', contactGroup)">{{fieldErrorMessage('name', contactGroup)}}</mat-error>
       </mat-form-field>
       
       <mat-form-field class="field">
         <mat-label>Mail</mat-label>
         <input matInput placeholder="Contact Mail" formControlName="mail" required>
-        <mat-error *ngIf="contactMailError()">{{contactMailErrorMessage()}}</mat-error>
+        <mat-error *ngIf="fieldError('mail', contactGroup)">{{fieldErrorMessage('mail', contactGroup)}}</mat-error>
       </mat-form-field>
   
       <button mat-raised-button [color]="'primary'" (click)="submitContact()" 
-              [disabled]="contactNameError() || contactMailError()">
+              [disabled]="fieldError('name', contactGroup) || fieldError('mail', contactGroup)">
         Create<mat-icon>check</mat-icon>
       </button>
 

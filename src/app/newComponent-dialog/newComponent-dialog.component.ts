@@ -15,46 +15,34 @@ export class NewMailComponent {
   
   constructor(public dialogservice: DialogService) { }
   
+  important = "Must Enter a Value!"
+  mailValid = "Must Enter a Valid Email!"
+  limitLength(ch: number){ return ch + " Characters Only!"}
+
   mailGroup = new FormGroup({
     receiver: new FormControl('', [Validators.required, Validators.email]),
     subject: new FormControl('', [Validators.required, Validators.maxLength(30)]),
     body: new FormControl('', [Validators.required]),
   });
-  mailReceiverError(){ return this.mailGroup.get('receiver')?.invalid }
-  mailSubjectError(){ return this.mailGroup.get('subject')?.invalid }
-  mailBodyError(){ return this.mailGroup.get('body')?.invalid }
-  mailReceiverErrorMessage(){ 
-    return this.mailGroup.get('receiver')?.hasError('required') ? 'Must Enter a Value' : 
-    this.mailGroup.get('receiver')?.hasError('email') ? 'Enter a Valid Mail!' : '';
-  }
-  mailSubjectErrorMessage(){ 
-    return this.mailGroup.get('subject')?.hasError('required') ? 'Must Enter a Value' : 
-    this.mailGroup.get('subject')?.hasError('maxlength') ? '30 Characters are Enouph!' : '';
-  }
-  mailBodyErrorMessage(){ return this.mailGroup.get('body')?.hasError('required') ? 'Must Enter a Value' : '';}
-
   
   contactGroup = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.maxLength(15)]),
     mail: new FormControl('', [Validators.required, Validators.email])
   });
-  contactNameError(){ return this.contactGroup.get('name')?.invalid }
-  contactMailError(){ return this.contactGroup.get('mail')?.invalid }
-  contactNameErrorMessage(){ 
-    return this.contactGroup.get('name')?.hasError('required') ? 'Must Enter a Value' : 
-    this.contactGroup.get('name')?.hasError('maxlength') ? '15 Characters only!' : '';
-  }
-  contactMailErrorMessage(){ 
-    return this.contactGroup.get('mail')?.hasError('required') ? 'Must Enter a Value' : 
-    this.contactGroup.get('mail')?.hasError('email') ? 'Enter a Valid Email!' : '';
-  }
-
 
   folderGroup = new FormGroup({name: new FormControl('', [Validators.required, Validators.maxLength(15)])});
-  folderError(){ return this.folderGroup.invalid }
-  folderNameErrorMessage(){ 
-    if(this.folderGroup.hasError('required')) return 'Must Enter a Value';
-    return this.folderGroup.hasError('maxlength') ? '15 Characters only!' : ''; 
+
+  fieldError(field: string, formgroup: FormGroup){ 
+    return formgroup.get(field)?.invalid 
+  }
+
+  fieldErrorMessage(field: string, formgroup: FormGroup){ 
+    if(formgroup.get(field)?.hasError(field) && field == 'name')
+      return this.limitLength(15);
+
+    return formgroup.get(field)?.hasError('required') ? this.important : 
+    formgroup.get(field)?.hasError('email') ? this.mailValid :
+    formgroup.get(field)?.hasError('maxlength') ? this.limitLength(30) : '';
   }
 
   @Output() emitMail = new EventEmitter<MailDTO>();
