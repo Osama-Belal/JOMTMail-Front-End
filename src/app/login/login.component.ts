@@ -50,4 +50,9 @@ export class LoginComponent {
     }
     this.userService.Create(user);
   }
+
+  ff = true
+  validation(){
+    return this.ff ? "/Mails" : "/login";
+  }
 }

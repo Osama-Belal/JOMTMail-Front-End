@@ -47,4 +47,9 @@ export default class RegisterComponent {
     }
     this.userService.Create(user);
   }
+
+  ff = false
+  validation(){
+    return this.ff ? "/Mails" : "/login";
+  }
 }
