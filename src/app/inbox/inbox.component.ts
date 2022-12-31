@@ -10,14 +10,13 @@ import { MailDTO } from '../DTO/MailDTO';
 export class InboxComponent {
 
   mailActive = false;
-  active: MailDTO = {
-    id: '',from: '',to: '',subject: '',content: '', timestamp: '', 
-    state: '', isStarred: false, priority: 0, senderID: '', receiverID: ''};
+  active: MailDTO = this.resetActiveMail();
   selected: any = []
 
   @Input() mails: MailDTO[] = [];
   @Output() inboxAction = new EventEmitter<string>();
-  @Output() selectedMails = new EventEmitter();
+  @Output() selectedMail = new EventEmitter<MailDTO>();
+  @Output() selectedMails = new EventEmitter<MailDTO[]>();
 
   allChecked = false;
 
@@ -45,6 +44,19 @@ export class InboxComponent {
   emitInboxAction(type: string){
     this.selectedMails.emit(this.selected);
     this.inboxAction.emit(type);
+  }
+  
+  emitMailAction(type: string, mail: MailDTO){
+    this.mailActive = false;
+    this.active = this.resetActiveMail();
+    this.selectedMail.emit(mail);
+    this.inboxAction.emit(type);
+  }
+
+  resetActiveMail(){
+    return {
+      id: '',from: '',to: '',subject: '',content: '', timestamp: '', 
+      state: '', isStarred: false, priority: 0, senderID: '', receiverID: ''};
   }
   
 }

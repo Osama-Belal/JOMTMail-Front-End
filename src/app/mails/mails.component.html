@@ -6,8 +6,8 @@
 
 <app-nav-bar (sortingActions)="sortingActions($event)"></app-nav-bar>
 
-<app-inbox [ngClass]="menuActive ? 'active' : ''" (inboxAction)="CRUD($event)" (selectedMails)="selected($event)"
-                 [mails]="mails"></app-inbox>
+<app-inbox [ngClass]="menuActive ? 'active' : ''" (inboxAction)="CRUD($event)" 
+    (selectedMails)="getSelectedMails($event)" (selectedMail)="getSelectedMail($event)" [mails]="mails"></app-inbox>
 
 <app-newComponent-dialog (emitMail)="createMail($event)" (emitContact)="createContact($event)"
                         (emitFolder)="createFolder($event)"></app-newComponent-dialog>

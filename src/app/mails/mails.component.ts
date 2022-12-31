@@ -40,9 +40,14 @@ export class MailsComponent {
     console.log("sort based on " + type);
   }
 
-  selected(selected: MailDTO[]){
+  getSelectedMails(selected: MailDTO[]){
     this.selectedMails = []
     selected.forEach((val:any) => this.selectedMails.push(Object.assign({}, val)));
+  }
+
+  getSelectedMail(selected: MailDTO){
+    this.selectedMails = []
+    this.selectedMails.push(selected);
   }
   
   createMail(mail: MailDTO){
