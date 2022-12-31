@@ -1,0 +1,22 @@
+<ul>
+  <li value="compose" (click)="openDialog('mail')"><mat-icon>brush</mat-icon></li> 
+  <li value="Dearest"><mat-icon>favorite_border</mat-icon></li>
+  <li value="drafts"><mat-icon>drafts</mat-icon></li>
+  <li value="Sent"><mat-icon>send</mat-icon></li>
+  <li value="Archive"><mat-icon>archive</mat-icon></li>
+  <li value="Trash"><mat-icon>delete</mat-icon></li>
+  
+  <h4 value="Folders"></h4>
+  <li value="Dearest"><mat-icon>favorite_border</mat-icon></li>
+  <li value="Sent"><mat-icon>send</mat-icon></li>
+  <li value="drafts"><mat-icon>drafts</mat-icon></li>
+  <li value="Archive"><mat-icon>archive</mat-icon></li>
+  <li value="Trash"><mat-icon>delete</mat-icon></li>
+  <li *ngFor="let folder of folders;let i as index" [attr.value]="folder.name"><mat-icon>folder</mat-icon></li>
+  <li value="New" (click)="openDialog('folder')"><mat-icon>add</mat-icon></li>
+    
+  <h4 value="Contacts"></h4>
+  <li *ngFor="let contact of contacts;let i = index" [attr.value]="contact.name"><mat-icon>person</mat-icon></li>
+  <li value="New" (click)="openDialog('contact')"><mat-icon>person_add</mat-icon></li>
+</ul>
+
