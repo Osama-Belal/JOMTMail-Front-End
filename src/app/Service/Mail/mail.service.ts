@@ -13,15 +13,15 @@ export class MailService {
 
   constructor(private http: HttpClient) { }
 
-  Create(mail: MailDTO){
-    this.http.post(`${this._url}/create/${this.DTOType}`, mail);
+  create(mail: MailDTO){
+    return this.http.post<MailDTO>(`${this._url}/create/${this.DTOType}`, mail);
   }
   
-  Read(mail: MailDTO){
+  read(mail: MailDTO){
     this.http.post(`${this._url}/read/${this.DTOType}`, mail);
   }
   
-  Update(){
+  update(){
     // this.http.post(`${this._url}/update/${this.DTOType}`, mail);
     return [{}] 
   }

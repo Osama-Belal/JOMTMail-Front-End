@@ -13,15 +13,19 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  Create(user: UserDTO){
-    this.http.post(`${this._url}/create/${this.DTOType}`, user);
+  login(user: UserDTO){
+    return this.http.post<UserDTO>(`${this._url}/${this.DTOType}/login`, user)
+  }
+
+  create(user: UserDTO){
+    return this.http.post<UserDTO>(`${this._url}/${this.DTOType}/register`, user)
   }
   
-  Read(user: UserDTO){
+  read(user: UserDTO){
     this.http.post(`${this._url}/read/${this.DTOType}`, user);
   }
   
-  Update(user: UserDTO){
+  update(user: UserDTO){
     this.http.post(`${this._url}/update/${this.DTOType}`, user);
   }
 

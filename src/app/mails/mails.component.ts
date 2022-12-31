@@ -34,7 +34,7 @@ export class MailsComponent {
   user!: UserDTO;
   selectedMails: MailDTO[] = [];
 
-  constructor(public mailservice: MailService) {}
+  constructor(public mailService: MailService) {}
 
   sortingActions(type: string){
     console.log("sort based on " + type);
@@ -51,6 +51,9 @@ export class MailsComponent {
   }
   
   createMail(mail: MailDTO){
+    this.mailService.create(mail).subscribe(data => {
+      mail.id = data.id;
+    })
     this.mails.push(mail); 
   }
   

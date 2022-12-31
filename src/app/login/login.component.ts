@@ -29,6 +29,7 @@ export class LoginComponent {
   important = "Must Enter a Value!"
   mailValid = "Must Enter a Valid Email!"
   limitLength = "15 Characters Only!"
+  isValidLogin = false;
 
   userGroup = new FormGroup({
     userName: new FormControl('', [Validators.required, Validators.maxLength(15)]),
@@ -48,6 +49,19 @@ export class LoginComponent {
       email: this.userGroup.controls.email.value,
       password: this.userGroup.controls.password.value
     }
-    this.userService.Create(user);
+    this.userService.login(user).subscribe(data => {
+      this.checkUserCredentials(data);
+      
+    })
+  }
+  checkUserCredentials(userDto: UserDTO){
+    if(userDto.requestState === 'false')
+      this.isValidLogin = false;
+    else
+      this.isValidLogin = true;
+  }
+  isValid(){
+    console.log(this.isValid);
+    return this.isValid;
   }
 }

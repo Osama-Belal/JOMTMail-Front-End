@@ -45,6 +45,8 @@ export default class RegisterComponent {
       email: this.userGroup.controls.email.value,
       password: this.userGroup.controls.password.value
     }
-    this.userService.Create(user);
+    this.userService.create(user).subscribe((data) => {
+     
+    })
   }
 }
