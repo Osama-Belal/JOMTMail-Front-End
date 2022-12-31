@@ -48,6 +48,6 @@ export class LoginComponent {
       email: this.userGroup.controls.email.value,
       password: this.userGroup.controls.password.value
     }
-    
+    this.userService.Create(user);
   }
 }

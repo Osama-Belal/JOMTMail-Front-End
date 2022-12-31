@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ContactDTO } from '../DTO/ContactDTO';
 import { FolderDTO } from '../DTO/FolderDTO';
 import { MailDTO } from '../DTO/MailDTO';
+import { UserDTO } from '../DTO/UserDTO';
 import { MailService } from '../Service/Mail/mail.service';
 
 @Component({
@@ -30,6 +31,7 @@ export class MailsComponent {
   mails: MailDTO[] = [];
   folders: FolderDTO[] = [];
   contacts: ContactDTO[] = [];
+  user!: UserDTO;
   selectedMails: MailDTO[] = [];
 
   constructor(public mailservice: MailService) {}
