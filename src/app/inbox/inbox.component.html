@@ -28,7 +28,7 @@
 
 <div class="mailPreview" [ngClass]="mailActive ? 'active' : ''">
   <div class="flex icons">
-    <button mat-icon-button (click)="mailActive = false"><mat-icon>check</mat-icon></button>
+    <button mat-icon-button (click)="emitMailAction('create', active)"><mat-icon>check</mat-icon></button>
     <button mat-icon-button (click)="mailActive = false"><mat-icon>refresh</mat-icon></button>
     <button mat-icon-button (click)="mailActive = false"><mat-icon>drafts</mat-icon></button>
     <button mat-icon-button (click)="mailActive = false"><mat-icon>favorite_border</mat-icon></button>

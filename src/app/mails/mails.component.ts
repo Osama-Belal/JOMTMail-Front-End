@@ -53,11 +53,22 @@ export class MailsComponent {
   }
   
   createMail(mail: MailDTO){
-    this.mailService.create(mail).subscribe(data => {
-      console.log(data);
-      // mail.id = data.id;
+    if (mail.state == "draft"){
+      this.postDraft(mail)
+    }else{
+      this.mailService.create(mail).subscribe(data => {
+        console.log(data);
+        mail.id = data.id;
+      })
+      this.mails.push(mail); 
+    }
+  }
+
+  postDraft(mail: MailDTO) {
+    this.mailService.postDraft(mail).subscribe(data =>{
+        console.log("draft created: ", data);
+        mail.id = data.id;
     })
-    this.mails.push(mail); 
   }
   
   createFolder(folder: FolderDTO){
@@ -80,7 +91,17 @@ export class MailsComponent {
 
   CRUD(action: string){
     switch(action){
-      // case 'c': this.mailservice.Create();break;
+      case 'create':
+         this.mailService.sendDraft(this.selectedMails[0]).subscribe(data => {
+            console.log("draft Sent: ", data);
+            for(let i = 0; i < this.mails.length; i++) {
+              if(this.mails[i].id == this.selectedMails[0].id){
+                this.mails.splice(i, 1);
+              }
+            }
+
+         });
+         break;
       // case 'r': this.mailservice.Read();break;
       case 'read': 
         let myMap = new Map(Object.entries(this.userService.folders));

@@ -6,6 +6,7 @@ import { MailDTO } from '../DTO/MailDTO';
 import { ContactService } from '../Service/Contact/contact.service';
 import { DialogService } from '../Service/Dialog/dialog.service';
 import { FolderService } from '../Service/Folder/folder.service';
+import { MailService } from '../Service/Mail/mail.service';
 import { UserService } from '../Service/User/user.service';
 
 @Component({
@@ -53,6 +54,7 @@ export class NewMailComponent {
   submitMail(){
     this.dialogservice.selectedDialog['mail'] = false
     let mail = <MailDTO>{
+      from: this.userService.userEmail,
       to: this.mailGroup.controls.receiver.value, 
       subject: this.mailGroup.controls.subject.value, 
       content: this.mailGroup.controls.body.value,
@@ -67,9 +69,14 @@ export class NewMailComponent {
   submitDraft(){
     this.dialogservice.selectedDialog['mail'] = false
     let mail = <MailDTO>{
+      from: this.userService.userEmail,
       to: this.mailGroup.controls.receiver.value, 
       subject: this.mailGroup.controls.subject.value, 
-      content: this.mailGroup.controls.body.value};
+      content: this.mailGroup.controls.body.value,
+      state: "draft",
+      priority:4,
+      isStarred: false
+    };
     this.emitMail.emit(mail);
     this.mailGroup.reset();
   }

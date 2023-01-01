@@ -20,10 +20,23 @@ export class MailService {
     let formParams = new FormData();
 
     formParams.append('mail', JSON.stringify(mail))
-    console.log("create mail called:", mail);
-    return this.http.post<MailDTO>(`${this._url}/${this.DTOType}/send`, formParams);
+      return this.http.post<MailDTO>(`${this._url}/${this.DTOType}/send`, formParams);
   }
   
+  postDraft(mail: MailDTO){
+    let queryParams = new HttpParams();
+    let formParams = new FormData();
+
+    formParams.append('mail', JSON.stringify(mail))
+    return this.http.post<MailDTO>(`${this._url}/draft/post`, formParams);
+  }
+
+  sendDraft(mail: MailDTO) {
+    return this.http.post<MailDTO>(`${this._url}/draft/send`, mail);
+  }
+  
+
+
   getAllMail(folderID: String){
     console.log("get mail called")
     return this.http.get<MailDTO[]>(`${this._url}/${this.DTOType}/get_mails/${folderID}`);
