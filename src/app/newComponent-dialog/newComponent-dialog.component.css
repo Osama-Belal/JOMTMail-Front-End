@@ -87,3 +87,10 @@
 .dialog.contact form{
     width: 40%;
 }
+.dialog.mail form{
+    width: 80%;
+}
+.dialog.folder form,
+.dialog.contact form{
+    width: 40%;
+}
