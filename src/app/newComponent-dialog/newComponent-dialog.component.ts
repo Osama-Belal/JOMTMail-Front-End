@@ -3,7 +3,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ContactDTO } from '../DTO/ContactDTO';
 import { FolderDTO } from '../DTO/FolderDTO';
 import { MailDTO } from '../DTO/MailDTO';
+import { ContactService } from '../Service/Contact/contact.service';
 import { DialogService } from '../Service/Dialog/dialog.service';
+import { FolderService } from '../Service/Folder/folder.service';
+import { UserService } from '../Service/User/user.service';
 
 @Component({
   selector: 'app-newComponent-dialog',
@@ -13,7 +16,8 @@ import { DialogService } from '../Service/Dialog/dialog.service';
 
 export class NewMailComponent {
   
-  constructor(public dialogservice: DialogService) { }
+  constructor(public dialogservice: DialogService, public userService: UserService,
+     public folderService: FolderService, public contactService: ContactService) { }
   
   important = "Must Enter a Value!"
   mailValid = "Must Enter a Valid Email!"
@@ -73,7 +77,13 @@ export class NewMailComponent {
   @Output() emitFolder = new EventEmitter<FolderDTO>();
   submitFolder(){
     this.dialogservice.selectedDialog['folder'] = false
-    let folder = <FolderDTO>{name: this.folderGroup.controls.name.value};
+    let folder = <FolderDTO>{
+      folderName: this.folderGroup.controls.name.value,
+      userId: this.userService.userId
+    };
+    this.folderService.create(folder).subscribe(data => {
+      folder.folderId = data.folderId;
+    })
     this.emitFolder.emit(folder);
     this.folderGroup.reset();
   }
@@ -81,10 +91,16 @@ export class NewMailComponent {
   @Output() emitContact = new EventEmitter<ContactDTO>();
   submitContact(){
     this.dialogservice.selectedDialog['contact'] = false
-    let contact = <ContactDTO>{
+    let contact:ContactDTO = <ContactDTO>{
       name: this.contactGroup.controls.name.value, 
-      mail: this.contactGroup.controls.mail.value};
-    this.emitContact.emit(contact);
-    this.contactGroup.reset();
+      mails: this.contactGroup.controls.mail.value,
+      userId: this.userService.userId
+  };
+    this.contactService.create(contact).subscribe(data => {
+      contact.id = data.id
+      this.emitContact.emit(contact);
+      this.contactGroup.reset();
+      console.log("contact created: ", contact);
+    })
   }
 }

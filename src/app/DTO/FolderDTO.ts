@@ -1,4 +1,5 @@
 export class FolderDTO{
-    id!: string;
-    name!: string;
+    userId!: string;
+    folderId!: string;
+    folderName!: string;
 }

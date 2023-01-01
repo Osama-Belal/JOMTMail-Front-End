@@ -21,7 +21,7 @@ export class InboxComponent implements OnInit {
   allChecked = false;
 
   ngOnInit(){
-    this.emitInboxAction('get');
+    this.emitInboxAction('read');
   }
 
   showMail(mail: any){

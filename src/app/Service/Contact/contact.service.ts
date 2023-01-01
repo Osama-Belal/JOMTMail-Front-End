@@ -13,19 +13,19 @@ export class ContactService {
 
   constructor(private http: HttpClient) { }
 
-  Create(contact: ContactDTO){
-    this.http.post(`${this._url}/create/${this.DTOType}`, contact);
+  create(contact: ContactDTO){
+    return this.http.post<ContactDTO>(`${this._url}/${this.DTOType}/add`, contact);
   }
   
-  Read(contact: ContactDTO){
+  read(contact: ContactDTO){
     this.http.post(`${this._url}/read/${this.DTOType}`, contact);
   }
   
-  Update(contact: ContactDTO){
+  update(contact: ContactDTO){
     this.http.post(`${this._url}/update/${this.DTOType}`, contact);
   }
 
-  Delete(contact: ContactDTO){
+  delete(contact: ContactDTO){
     this.http.post(`${this._url}/delete/${this.DTOType}`, contact);
   }
   

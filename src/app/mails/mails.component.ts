@@ -62,6 +62,7 @@ export class MailsComponent {
   
   createFolder(folder: FolderDTO){
     this.folders.push(folder);
+    console.log("folder created: ", folder)
   }
   
   createContact(contact: ContactDTO){
@@ -81,13 +82,13 @@ export class MailsComponent {
     switch(action){
       // case 'c': this.mailservice.Create();break;
       // case 'r': this.mailservice.Read();break;
-      case 'get': 
+      case 'read': 
         let myMap = new Map(Object.entries(this.userService.folders));
         console.log(myMap);
         myMap.forEach((value:any, key:any) =>{
           let folder = new FolderDTO();
-          folder.id = value;
-          folder.name = key;
+          folder.folderId = value;
+          folder.folderName = key;
           this.folders.push(folder);
         })
           this.mailService.getAllMail(myMap.get("inbox")).subscribe(data => {
@@ -102,7 +103,7 @@ export class MailsComponent {
 
   changeActiveFolder(e: FolderDTO){
     this.mails.splice(0);
-    this.activeFolder = e.name;
+    this.activeFolder = e.folderName;
     let myMap = new Map(Object.entries(this.userService.folders));
     this.mailService.getAllMail(myMap.get(this.activeFolder)).subscribe(data => {
       this.mails = data;
