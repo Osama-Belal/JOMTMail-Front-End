@@ -35,8 +35,8 @@
         </div>
         
         <div>
-            <span routerLink = [isValid()] > aklo zebyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy</span>
-            <a (click)="submitUser()" mat-button>Login</a>
+            <a (click)="submitUser()" mat-raised-button [color]="'primary'" routerLink="{{validation()}}"
+                [disabled]="userError('userName') || userError('email') || userError('password')">Login</a>
         </div>
     </div>
 </form>

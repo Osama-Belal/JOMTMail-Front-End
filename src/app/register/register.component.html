@@ -47,7 +47,8 @@
         </div>
         
         <div>
-            <a (click)="submitUser()" mat-button routerLink="/Mails">Create a new account</a>
+            <a (click)="submitUser()" mat-raised-button [color]="'primary'" routerLink="{{validation()}}"
+            [disabled]="userError('userName') || userError('email') || userError('password')">Create a new account</a>
         </div>
     </div>
 </form>

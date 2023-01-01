@@ -6,7 +6,7 @@
     </mat-paginator>
     <div class="flex allMails">
       <input type="checkbox" id="selected" [checked]="allChecked" (change)="selectAllMails($event);allChecked = !allChecked">
-      <button mat-icon-button (click)="emitInboxAction('update')"><mat-icon>refresh</mat-icon></button>
+      <button mat-icon-button (click)="emitInboxAction('get')"><mat-icon>refresh</mat-icon></button>
       <button mat-icon-button (click)="emitInboxAction('archive')"><mat-icon>archive</mat-icon></button>
       <button mat-icon-button (click)="emitInboxAction('fav')"><mat-icon>favorite_border</mat-icon></button>
       <button mat-icon-button (click)="emitInboxAction('delete')"><mat-icon>delete</mat-icon></button>

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, Input } from '@angular/core';
+import { Component, EventEmitter, Output, Input, OnInit } from '@angular/core';
 import { MailDTO } from '../DTO/MailDTO';
 
 @Component({
@@ -7,7 +7,7 @@ import { MailDTO } from '../DTO/MailDTO';
   styleUrls: ['./inbox.component.css']
 })
 
-export class InboxComponent {
+export class InboxComponent implements OnInit {
 
   mailActive = false;
   active: MailDTO = this.resetActiveMail();
@@ -19,6 +19,10 @@ export class InboxComponent {
   @Output() selectedMails = new EventEmitter<MailDTO[]>();
 
   allChecked = false;
+
+  ngOnInit(){
+    this.emitInboxAction('get');
+  }
 
   showMail(mail: any){
     this.active = mail;

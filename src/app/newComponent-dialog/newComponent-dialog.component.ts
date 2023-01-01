@@ -51,7 +51,11 @@ export class NewMailComponent {
     let mail = <MailDTO>{
       to: this.mailGroup.controls.receiver.value, 
       subject: this.mailGroup.controls.subject.value, 
-      content: this.mailGroup.controls.body.value};
+      content: this.mailGroup.controls.body.value,
+      state: "mail",
+      priority:4,
+      isStarred: false
+    };
     this.emitMail.emit(mail);
     this.mailGroup.reset();
   }

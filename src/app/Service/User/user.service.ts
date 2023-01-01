@@ -10,9 +10,15 @@ export class UserService {
 
   private _url: string = "http://localhost:8080";
   private DTOType: string = "user";
-
+  userId!: string;
+  userEmail!: string;
+  folders: Map<String,String> = new Map<String, String>([
+    ["inbox", "test"]
+  ]);
+  inboxId!: String;
+  
   constructor(private http: HttpClient) { }
-
+  
   login(user: UserDTO){
     return this.http.post<UserDTO>(`${this._url}/${this.DTOType}/login`, user)
   }

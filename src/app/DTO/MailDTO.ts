@@ -5,9 +5,8 @@ export class MailDTO{
     subject!: string;
     content!: string;
     timestamp!: string;
-    state!: string;
-    isStarred!: boolean;
-    priority!: number;
-    senderID!: string;
-    receiverID!: string;
+    state: string = 'mail';
+    isStarred: boolean = false;
+    priority: number = 4;
+
 }

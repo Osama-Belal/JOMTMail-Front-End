@@ -49,4 +49,9 @@ export default class RegisterComponent {
      
     })
   }
+
+  ff = false
+  validation(){
+    return this.ff ? "/Mails" : "/login";
+  }
 }

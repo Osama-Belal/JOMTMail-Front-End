@@ -4,6 +4,7 @@ import { FolderDTO } from '../DTO/FolderDTO';
 import { MailDTO } from '../DTO/MailDTO';
 import { UserDTO } from '../DTO/UserDTO';
 import { MailService } from '../Service/Mail/mail.service';
+import { UserService } from '../Service/User/user.service';
 
 @Component({
   selector: 'app-mails',
@@ -34,7 +35,7 @@ export class MailsComponent {
   user!: UserDTO;
   selectedMails: MailDTO[] = [];
 
-  constructor(public mailService: MailService) {}
+  constructor(public mailService: MailService, public userService: UserService) {}
 
   sortingActions(type: string){
     console.log("sort based on " + type);
@@ -52,7 +53,8 @@ export class MailsComponent {
   
   createMail(mail: MailDTO){
     this.mailService.create(mail).subscribe(data => {
-      mail.id = data.id;
+      console.log(data);
+      // mail.id = data.id;
     })
     this.mails.push(mail); 
   }
@@ -78,6 +80,13 @@ export class MailsComponent {
     switch(action){
       // case 'c': this.mailservice.Create();break;
       // case 'r': this.mailservice.Read();break;
+      case 'get': 
+        console.log(this.userService.folders)
+          this.mailService.getAllMail(this.userService.inboxId).subscribe(data => {
+            this.mails = data;
+            console.log("inbox data: ", data);
+          });
+        break;
       case 'update': this.createMail(this.ob);break; // this.mailservice.Update();break;
       case 'delete' : this.delete();break;
     }
