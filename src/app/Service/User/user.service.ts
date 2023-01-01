@@ -12,10 +12,9 @@ export class UserService {
   private DTOType: string = "user";
   userId!: string;
   userEmail!: string;
-  folders: Map<String,String> = new Map<String, String>([
-    ["inbox", "test"]
+  folders: Map<string,string> = new Map<string, string>([
+    ['aklo', 'zeby']
   ]);
-  inboxId!: String;
   
   constructor(private http: HttpClient) { }
   

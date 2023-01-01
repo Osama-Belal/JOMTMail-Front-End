@@ -5,6 +5,5 @@ export class UserDTO {
     password!: string;
     requestState!: string;
     requestMessage!: string;
-    folderNames!: Map<String, String>
-    inboxId!: String;
+    folderNames!: Map<string, string>
 }

@@ -2,7 +2,7 @@
     <mat-icon>{{menuActive ? 'close' : 'view_headline'}}</mat-icon>
 </button>
 
-<app-side-bar [ngClass]="menuActive ? 'active' : ''" [contacts]="contacts" [folders]="folders"></app-side-bar>
+<app-side-bar [ngClass]="menuActive ? 'active' : ''" [contacts]="contacts" [folders]="folders" (activeFolder)="changeActiveFolder($event)"></app-side-bar>
 
 <app-nav-bar (sortingActions)="sortingActions($event)"></app-nav-bar>
 

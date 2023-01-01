@@ -12,7 +12,7 @@
   <li value="drafts"><mat-icon>drafts</mat-icon></li>
   <li value="Archive"><mat-icon>archive</mat-icon></li>
   <li value="Trash"><mat-icon>delete</mat-icon></li>
-  <li *ngFor="let folder of folders;let i as index" [attr.value]="folder.name"><mat-icon>folder</mat-icon></li>
+  <li *ngFor="let folder of folders;let i as index" (click)="selectFolder(i)" [attr.value]="folder.name"><mat-icon>folder</mat-icon></li>
   <li value="New" (click)="openDialog('folder')"><mat-icon>add</mat-icon></li>
     
   <h4 value="Contacts"></h4>
