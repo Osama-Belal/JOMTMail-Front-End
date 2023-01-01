@@ -1,0 +1,13 @@
+<button mat-icon-button [ngClass]="menuActive ? 'active' : ''" (click)="menuActive = !menuActive">
+    <mat-icon>{{menuActive ? 'close' : 'view_headline'}}</mat-icon>
+</button>
+
+<app-side-bar [ngClass]="menuActive ? 'active' : ''" [contacts]="contacts" [folders]="folders" (activeFolder)="changeActiveFolder($event)"></app-side-bar>
+
+<app-nav-bar (sortingActions)="sortingActions($event)"></app-nav-bar>
+
+<app-inbox [ngClass]="menuActive ? 'active' : ''" (inboxAction)="CRUD($event)" 
+    (selectedMails)="getSelectedMails($event)" (selectedMail)="getSelectedMail($event)" [mails]="mails"></app-inbox>
+
+<app-newComponent-dialog (emitMail)="createMail($event)" (emitContact)="createContact($event)"
+                        (emitFolder)="createFolder($event)"></app-newComponent-dialog>
