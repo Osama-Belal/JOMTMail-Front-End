@@ -68,6 +68,16 @@ export class InboxComponent {
     return -1;
   }
 
+  getPriority(pr: number){
+    switch(pr){
+      case 1: return "Unimportant";break;
+      case 2: return "Normal";break;
+      case 3: return "Important";break;
+      case 4: return "Urgent";break;
+      default: return "UnSet";break;
+    }
+  }
+
   openDialog(window: string, mail: MailDTO) {
     if(this.activeFolder.folderName != 'draft') return
     this.dialogservice.selectedDialog[window] = true;
