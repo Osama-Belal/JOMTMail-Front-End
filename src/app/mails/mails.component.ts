@@ -87,13 +87,17 @@ export class MailsComponent implements OnInit {
     this.contacts.push(contact);
   }
   
-  delete(){
+  deleteSelectedMails(){
     for(var i = 0;i < this.mails.length;i++){
       for(var selected of this.selectedMails){
         if(JSON.stringify(this.mails[i]) == JSON.stringify(selected))
           this.mails.splice(i, 1);
       }
     }
+  }
+
+  deleteDTO(id: string){
+    console.log("tobe deleted", id)
   }
 
   mailCrud(action: string){
@@ -113,7 +117,7 @@ export class MailsComponent implements OnInit {
           this.getAllFolders();
           break;
           case 'update': //this.createMail(this.ob);break; // this.mailservice.Update();break;
-          case 'delete' : this.delete();break;
+          case 'delete' : this.deleteSelectedMails();break;
         }
       }
       
@@ -148,6 +152,7 @@ export class MailsComponent implements OnInit {
       this.contacts = data;
     })
   }
+  
   changeActiveFolder(folder: FolderDTO){
     this.mails.splice(0);
     this.activeFolder = folder;

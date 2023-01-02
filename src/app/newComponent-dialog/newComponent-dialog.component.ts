@@ -158,4 +158,15 @@ export class NewMailComponent {
     this.contactGroup.reset();
     this.dialogservice.selectedDialog['update'] = false
   }
+
+  @Output() deleteID = new EventEmitter<string>();
+  deleteDialog(){
+    this.dialogservice.resetAllDialogs();
+    if (this.dialogservice.toUpdate){
+      let ID = this.dialogservice.toUpdate.mailId ? this.dialogservice.toUpdate.mailId :
+              this.dialogservice.toUpdate.id ? this.dialogservice.toUpdate.id :
+              this.dialogservice.toUpdate.folderId ? this.dialogservice.toUpdate.folderId : '';
+      this.deleteID.emit(ID)
+    }
+  }
 }
