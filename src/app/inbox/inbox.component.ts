@@ -36,22 +36,28 @@ export class InboxComponent implements OnInit {
   
   selectMail(e: any, mail: any){
     var index = this.selected.indexOf(mail);
-    if(e.target.checked)
+    if(index == -1)
       this.selected.push(mail);
     else
       this.selected.splice(index, 1);
-    console.log(this.selected);
+    this.allChecked = this.isAllSelected()
   }
 
-  selectAllMails(e: any){ 
-    if(e.target.checked)
-      this.mails.forEach((val:any) => {if(!this.selected.includes(val)) this.selected.push(Object.assign({}, val));});
-    else
-      this.selected = [];
-    console.log(this.selected);
+  selectAllMails(){ 
+    this.selected = []
+    if(this.allChecked)
+      this.mails.forEach((val:any) => {this.selected.push(Object.assign({}, val));});
   }
 
- 
+  isAllSelected(){return this.selected.length == this.mails.length}
+  someSelected(): boolean {return this.selected.length != 0 && !this.allChecked}
+
+  isSelected(mail: MailDTO){
+    for(var selec of this.selected)
+      if(JSON.stringify(mail) == JSON.stringify(selec)) 
+      return true
+    return false
+  }
 
   openDialog(window: string, update?: boolean, mail?: MailDTO) {
     this.dialogservice.resetAllDialogs();
