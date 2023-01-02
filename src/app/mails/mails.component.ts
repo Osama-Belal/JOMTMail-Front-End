@@ -147,12 +147,13 @@ export class MailsComponent implements OnInit {
       console.log("inbox data: ", data);
     });
   }
+  
   getAllContacts(){
     this.contactService.getAllContacts(this.userService.userId).subscribe(data => {
       this.contacts = data;
     })
   }
-  
+
   changeActiveFolder(folder: FolderDTO){
     this.mails.splice(0);
     this.activeFolder = folder;
