@@ -143,27 +143,15 @@ export class MailsComponent {
   }
   
   updateDraft(mail: MailDTO) {
-    console.log("update contact: ", this.activeContact);
-    this.contactService.update(this.activeContact).subscribe(data => {
-      console.log("contact updated: ", data)
-      
-    })
+    
   }
   
   updateFolder(folder: FolderDTO) {
-    console.log("update contact: ", this.activeContact);
-    this.contactService.update(this.activeContact).subscribe(data => {
-      console.log("contact updated: ", data)
-      
-    })
+    
   }
 
   updateContact(contact: ContactDTO) {
-    console.log("update contact: ", this.activeContact);
-    this.contactService.update(this.activeContact).subscribe(data => {
-      console.log("contact updated: ", data)
-      
-    })
+    
   }
 
 }
