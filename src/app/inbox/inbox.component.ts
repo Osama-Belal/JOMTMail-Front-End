@@ -59,13 +59,11 @@ export class InboxComponent implements OnInit {
     return false
   }
 
-  openDialog(window: string, update?: boolean, mail?: MailDTO) {
-    this.dialogservice.resetAllDialogs();
+  openDialog(window: string, mail: MailDTO) {
+    if(this.activeFolder.folderName != 'draft') return
     this.dialogservice.selectedDialog[window] = true;
-    if(this.activeFolder.folderName == "draft"){
-      this.dialogservice.selectedDialog['update'] = update;
-      this.dialogservice.toUpdate = mail;
-    }
+    this.dialogservice.selectedDialog['update'] = true;
+    this.dialogservice.toUpdate = mail;
   }
 
   emitInboxAction(type: string){

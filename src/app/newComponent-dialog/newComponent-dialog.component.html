@@ -18,9 +18,8 @@
         
       <mat-form-field class="mailBody">
         <mat-label>Write Your Message</mat-label>
-        <textarea matInput placeholder="Always starts with kind words" formControlName="body" required>
-          {{fieldUpdateMessage('body', mailGroup)}}
-        </textarea>
+        <textarea matInput placeholder="Always starts with kind words" formControlName="body" 
+                  value="{{fieldUpdateMessage('body', mailGroup)}}"  required></textarea>
         <mat-error *ngIf="fieldError('body', mailGroup)">{{fieldErrorMessage('body', mailGroup)}}</mat-error>
       </mat-form-field>
   

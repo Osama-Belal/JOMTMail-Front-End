@@ -15,7 +15,7 @@
   </div>
 
   <li class="flex" *ngFor="let mail of mails.slice(paginator.pageIndex*7, (paginator.pageIndex+1)*7)" 
-      (click)="showMail(mail);mailActive = true" (dblclick)="openDialog('mail', true)">
+      (click)="showMail(mail);mailActive = true" (dblclick)="openDialog('mail', mail)">
     
       <mat-checkbox id="selected" (change)="selectMail($event, mail)" 
     [(ngModel)]="allChecked"></mat-checkbox>

@@ -18,9 +18,9 @@ export class MailsComponent {
   ob = {
     id: '34',
     from: 'sasdasds',
-    to: 'osama',
-    subject: 'osama',
-    content: 'osama',
+    to: 'osama@zbymanga',
+    subject: 'about what my nigga',
+    content: 'osama!osama!osama!osama!osama!osama!osama!osama!osama!osama!osama!osama!osama!osama!osama!osama!osama!osama!osama!osama!osama!osama!osama!osama!osama!osama!osama!',
     timestamp: 'osama',
     state: 'osama',
     isStarred: true,
