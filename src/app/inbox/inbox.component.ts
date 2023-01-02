@@ -34,19 +34,21 @@ export class InboxComponent {
     this.activeMail = mail;
   }
   
-  selectMail(e: any, mail: any){
-    var index = this.selected.indexOf(mail);
-    if(index == -1)
-      this.selected.push(mail);
-    else
-      this.selected.splice(index, 1);
+  selectMail(mail: any){
+    var index = this.getMailIndex(mail);
+    if(index == -1){
+      this.selected.push(mail);console.log("Added")}
+    else{
+      this.selected.splice(index, 1);console.log("removed")}
+    console.log(this.selected)
     this.allChecked = this.isAllSelected()
   }
-
+  
   selectAllMails(){ 
     this.selected = []
     if(this.allChecked)
-      this.mails.forEach((val:any) => {this.selected.push(Object.assign({}, val));});
+    this.mails.forEach((val:any) => {this.selected.push(Object.assign({}, val));});
+    console.log(this.selected)
   }
 
   isAllSelected(){return this.selected.length == this.mails.length}
@@ -57,6 +59,13 @@ export class InboxComponent {
       if(JSON.stringify(mail) == JSON.stringify(selec)) 
       return true
     return false
+  }
+
+  getMailIndex(mail: MailDTO){
+    for(var i = 0;i < this.selected.length;i++)
+      if(JSON.stringify(mail) == JSON.stringify(this.selected[i])) 
+      return i
+    return -1;
   }
 
   openDialog(window: string, mail: MailDTO) {
