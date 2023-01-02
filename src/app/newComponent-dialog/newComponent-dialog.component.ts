@@ -28,6 +28,7 @@ export class NewMailComponent {
     receiver: new FormControl('', [Validators.required, Validators.email]),
     subject: new FormControl('', [Validators.required, Validators.maxLength(30)]),
     body: new FormControl('', [Validators.required]),
+    priority: new FormControl(0, [Validators.required])
   });
   
   contactGroup = new FormGroup({
@@ -59,9 +60,10 @@ export class NewMailComponent {
       subject: this.mailGroup.controls.subject.value, 
       content: this.mailGroup.controls.body.value,
       state: "mail",
-      priority:4,
+      priority: this.mailGroup.controls.priority.value?this.mailGroup.controls.priority.value:0,
       isStarred: false
     };
+    console.log(mail);
     this.emitMail.emit(mail);
     this.mailGroup.reset();
   }

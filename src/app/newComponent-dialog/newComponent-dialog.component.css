@@ -76,7 +76,7 @@
 
 .dialog.active form .icons{
     margin: 0;
-    height: 4em;
+    /* height: 4em; */
     overflow: hidden;
 }
 

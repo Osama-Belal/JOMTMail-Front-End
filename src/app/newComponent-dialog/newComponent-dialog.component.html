@@ -23,11 +23,18 @@
       <div class="flex icons">
         <button mat-raised-button  [color]="'primary'" (click)="submitMail()"
           [disabled]="fieldError('receiver', mailGroup) || 
-          fieldError('subject', mailGroup) || fieldError('body', mailGroup)">
-          {{dialogservice.selectedDialog['update'] ? "Update" : "Send Now"}}<mat-icon>check</mat-icon>
+          fieldError('subject', mailGroup) || fieldError('body', mailGroup)">Send Now<mat-icon>check</mat-icon>
         </button>
-        <input type="file" multiple="true" id="attachment" style="margin-left: 1em;">
-        <label for="attachment"><mat-icon>attach_file</mat-icon></label>
+
+        <input type="file" multiple="true" id="attachment" style="margin-left: 3em">
+        <label for="attachment" title="Attach Files"><mat-icon>attach_file</mat-icon></label>
+
+        <mat-chip-listbox style="margin-left: 2em;" formControlName="priority">
+          <mat-chip-option [value]="0">Unimportant</mat-chip-option>
+          <mat-chip-option [value]="1" selected="">Normal</mat-chip-option>
+          <mat-chip-option color="accent" [value]="2">Important</mat-chip-option>
+          <mat-chip-option color="warn" [value]="3">Urgent</mat-chip-option>
+        </mat-chip-listbox>
       </div>
   
       <button mat-icon-button (click)="submitDraft();dialogservice.selectedDialog['mail'] = false" 
