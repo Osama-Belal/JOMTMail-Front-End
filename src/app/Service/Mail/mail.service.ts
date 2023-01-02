@@ -59,8 +59,8 @@ export class MailService {
     this.http.post(`${this._url}/delete/${this.DTOType}`, mail);
   }
   
-  download(attachmentId: string){
-    return this.http.get<any>(`${this._url}/attachment/get/${attachmentId}`);
+  download(mailId: string){ 
+    return this.http.get<AttachmentDTO[]>(`${this._url}/files/${mailId}`);
   }
 
 }

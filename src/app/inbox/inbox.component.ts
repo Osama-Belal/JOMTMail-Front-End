@@ -3,6 +3,7 @@ import { FolderDTO } from '../DTO/FolderDTO';
 import { MailDTO } from '../DTO/MailDTO';
 import { MailService } from '../Service/Mail/mail.service';
 import { saveAs } from 'file-saver';
+import { AttachmentDTO } from '../DTO/AttachmentDTO';
 
 @Component({
   selector: 'app-inbox',
@@ -21,8 +22,9 @@ export class InboxComponent implements OnInit {
   @Output() inboxAction = new EventEmitter<string>();
   @Output() selectedMail = new EventEmitter<MailDTO>();
   @Output() selectedMails = new EventEmitter<MailDTO[]>();
-  fileUrl: string = "af9bf1fb-3cf6-4894-b044-7ec96da88a8e";
+  fileUrl: string = "0b74196f-32d3-4357-b0dd-7c6ce4828173";
   allChecked = false;
+  attachments!: AttachmentDTO[];
 
   constructor(public mailService: MailService){}
 
@@ -69,8 +71,9 @@ export class InboxComponent implements OnInit {
   
   downloadFile(){
     this.mailService.download(this.fileUrl).subscribe(data => {
-      // console.log("file downloaded: ", data)
-      saveAs(data);
+      console.log(data);
+      this.attachments = data;
+        // saveAs(i.url);
     });
   }
 
