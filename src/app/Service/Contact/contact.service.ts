@@ -17,6 +17,10 @@ export class ContactService {
     return this.http.post<ContactDTO>(`${this._url}/${this.DTOType}/add`, contact);
   }
   
+  getAllContacts(id: string){
+    return this.http.get<ContactDTO[]>(`${this._url}/${this.DTOType}/get/${id}`);
+  }
+  
   read(contact: ContactDTO){
     this.http.post(`${this._url}/read/${this.DTOType}`, contact);
   }

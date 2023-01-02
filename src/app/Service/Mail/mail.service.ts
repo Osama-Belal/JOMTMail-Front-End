@@ -47,9 +47,8 @@ export class MailService {
     return this.http.get(`${this._url}/read/${this.DTOType}`);
   }
   
-  update(){
-    // this.http.post(`${this._url}/update/${this.DTOType}`, mail);
-    return [{}] 
+  update(mail: MailDTO){
+    return this.http.put(`${this._url}/update/${this.DTOType}`, mail);
   }
 
   delete(mail: MailDTO){

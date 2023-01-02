@@ -9,7 +9,7 @@ import { DialogService } from '../Service/Dialog/dialog.service';
   styleUrls: ['./inbox.component.css']
 })
 
-export class InboxComponent implements OnInit {
+export class InboxComponent {
 
   mailActive = false;
   activeMail: MailDTO = this.resetActiveMail();
@@ -25,10 +25,10 @@ export class InboxComponent implements OnInit {
   @Output() selectedMail = new EventEmitter<MailDTO>();
   @Output() selectedMails = new EventEmitter<MailDTO[]>();
 
-
+/* 
   ngOnInit(){
     this.emitInboxAction('read');
-  }
+  } */
 
   showMail(mail: any){
     this.activeMail = mail;
@@ -79,9 +79,7 @@ export class InboxComponent implements OnInit {
   }
 
   resetActiveMail(){
-    return {
-      id: '',from: '',to: '',subject: '',content: '', timestamp: '', 
-      state: '', isStarred: false, priority: 0, senderID: '', receiverID: ''};
+    return new MailDTO();
   }
   
 }

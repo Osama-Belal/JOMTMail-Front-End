@@ -1,9 +1,11 @@
+import { ConfigurableFocusTrapFactory } from '@angular/cdk/a11y';
 import { Component, OnInit, Input } from '@angular/core';
 import { ContactDTO } from '../DTO/ContactDTO';
 import { FolderDTO } from '../DTO/FolderDTO';
 import { MailDTO } from '../DTO/MailDTO';
 import { UserDTO } from '../DTO/UserDTO';
 import { ContactService } from '../Service/Contact/contact.service';
+import { FolderService } from '../Service/Folder/folder.service';
 import { MailService } from '../Service/Mail/mail.service';
 import { UserService } from '../Service/User/user.service';
 
@@ -14,20 +16,12 @@ import { UserService } from '../Service/User/user.service';
   styleUrls: ['./mails.component.css']
 })
 
-export class MailsComponent {
-  ob = {
-    id: '34',
-    from: 'sasdasds',
-    to: 'osama@zbymanga',
-    subject: 'about what my nigga',
-    content: 'osama!osama!osama!osama!osama!osama!osama!osama!osama!osama!osama!osama!osama!osama!osama!osama!osama!osama!osama!osama!osama!osama!osama!osama!osama!osama!osama!',
-    timestamp: 'osama',
-    state: 'osama',
-    isStarred: true,
-    priority: 4,
-    senderID: 'osama',
-    receiverID: 'osama',
-  };
+export class MailsComponent implements OnInit {
+
+  ngOnInit() {
+    this.mailCrud('read');
+    this.contactsCrud('read');
+  }
 
   menuActive = false
   mails: MailDTO[] = [];
@@ -38,7 +32,7 @@ export class MailsComponent {
   activeFolder!: FolderDTO;
   activeContact!: ContactDTO;
 
-  constructor(public mailService: MailService, public userService: UserService, public contactService: ContactService) {}
+  constructor(public mailService: MailService, public userService: UserService, public contactService: ContactService, public folderService: FolderService) {}
   
   sortingActions(activeSortings: string[]){
     console.log("sort based on ", activeSortings);
@@ -66,7 +60,7 @@ export class MailsComponent {
       console.log("mail created")
       this.mailService.create(mail).subscribe(data => {
         console.log(data);
-        mail.id = data.id;
+        mail.mailId = data.mailId;
       })
       this.mails.push(mail); 
     }
@@ -75,7 +69,7 @@ export class MailsComponent {
   postDraft(mail: MailDTO) {
     this.mailService.postDraft(mail).subscribe(data =>{
         console.log("draft created: ", data);
-        mail.id = data.id;
+        mail.mailId = data.mailId;
     })
   }
   
@@ -97,13 +91,13 @@ export class MailsComponent {
     }
   }
 
-  CRUD(action: string){
+  mailCrud(action: string){
     switch(action){
       case 'create':
          this.mailService.sendDraft(this.selectedMails[0]).subscribe(data => {
             console.log("draft Sent: ", data);
             for(let i = 0; i < this.mails.length; i++) {
-              if(this.mails[i].id == this.selectedMails[0].id){
+              if(this.mails[i].mailId == this.selectedMails[0].mailId){
                 this.mails.splice(i, 1);
               }
             }
@@ -111,24 +105,43 @@ export class MailsComponent {
          break;
       // case 'r': this.mailservice.Read();break;
       case 'read': 
-        let myMap = new Map(Object.entries(this.userService.folders));
-        console.log(myMap);
-        myMap.forEach((value:any, key:any) =>{
-          let folder = new FolderDTO();
-          folder.folderId = value;
-          folder.folderName = key;
-          this.folders.push(folder);
-        })
-          this.mailService.getAllMail(myMap.get("inbox")).subscribe(data => {
-            this.mails = data;
-            console.log("inbox data: ", data);
-          });
-        break;
-      case 'update': this.createMail(this.ob);break; // this.mailservice.Update();break;
-      case 'delete' : this.delete();break;
+          this.getAllFolders();
+          break;
+          case 'update': //this.createMail(this.ob);break; // this.mailservice.Update();break;
+          case 'delete' : this.delete();break;
+        }
+      }
+      
+  contactsCrud(action: string){
+      switch(action){
+        case 'create': break;
+        case 'read': this.getAllContacts(); break;
+        case 'update': break;
+        case 'delete': break; 
     }
   }
 
+  getAllFolders(){
+    let myMap = new Map(Object.entries(this.userService.folders));
+    console.log(myMap);
+
+    myMap.forEach((value:any, key:any) =>{
+      let folder = new FolderDTO();
+      folder.folderId = value;
+      folder.folderName = key;
+      this.folders.push(folder);
+    })
+
+    this.mailService.getAllMail(myMap.get("inbox")).subscribe(data => {
+      this.mails = data;
+      console.log("inbox data: ", data);
+    });
+  }
+  getAllContacts(){
+    this.contactService.getAllContacts(this.userService.userId).subscribe(data => {
+      this.contacts = data;
+    })
+  }
   changeActiveFolder(folder: FolderDTO){
     this.mails.splice(0);
     this.activeFolder = folder;
@@ -138,17 +151,50 @@ export class MailsComponent {
     });
   } 
 
-  changeActiveContact(contact: ContactDTO){
-    this.activeContact = contact;
+  updateDraft(mail: MailDTO) {
+    this.mailService.update(mail).subscribe(data => {
+      console.log("draft updated: ", data)
+    })
+    for(let i = 0; i < this.mails.length; i++){
+      if(this.mails[i].mailId == mail.mailId) {
+        this.mails[i] = mail;
+        console.log("mails changed ", this.mails[i])
+      }
+    }
   }
   
+  updateFolder(folder: FolderDTO) {
+    this.folderService.update(folder).subscribe(data => {
+      console.log("folder updated: ", data)
+    })
+    for(let i = 0; i < this.folders.length; i++){
+      if(this.folders[i].folderId == folder.folderId){
+        this.folders[i] = folder;
+        console.log("folder changed ", this.folders[i])
+      }
+    }
+  }
+
   updateContact(contact: ContactDTO) {
-    console.log("update contact: ", this.activeContact);
-    contact.id = this.activeContact.id; 
+    // console.log("update contact: ", this.activeContact);
+    // contact.id = this.activeContact.id; 
+    // this.contactService.update(contact).subscribe(data => {
+    //   console.log("contact updated: ", data)
+      
+    // })
+
     this.contactService.update(contact).subscribe(data => {
       console.log("contact updated: ", data)
-      
     })
+
+    for(let i = 0; i < this.contacts.length; i++){
+      if(this.contacts[i].id == contact.id){
+        console.log("contact not changed zeb ossama: ", this.contacts[i])
+        this.contacts[i] = contact;
+        console.log("contact changed zeb ossama: ", this.contacts[i])
+      }
+    }
+
   }
 
 }
