@@ -12,4 +12,6 @@
     [mails]="mails" [folders]="folders" [activeFolder]="activeFolder"></app-inbox>
 
 <app-newComponent-dialog (emitMail)="createMail($event)" (emitContact)="createContact($event)"
-                        (emitFolder)="createFolder($event)" (updateContact)="updateContact($event)"></app-newComponent-dialog>
+                        (emitFolder)="createFolder($event)" 
+                        (updateContact)="updateContact($event)" (updateDraft)="updateDraft($event)"
+                        (updateFolder)="updateFolder($event)"></app-newComponent-dialog>
