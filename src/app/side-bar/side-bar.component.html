@@ -18,7 +18,7 @@
   <li value="New" (click)="openDialog('folder')"><mat-icon>add</mat-icon></li>
     
   <h4 value="Contacts"></h4>
-  <li *ngFor="let contact of contacts;let i = index" (dblclick)="openDialog('contact', true, contact)" 
+  <li *ngFor="let contact of contacts;let i = index" (click)="selectContact(i)" (dblclick)="openDialog('contact', true, contact)" 
       [attr.value]="contact.name"><mat-icon>person</mat-icon></li>
   <li value="New" (click)="openDialog('contact')"><mat-icon>person_add</mat-icon></li>
 </ul>

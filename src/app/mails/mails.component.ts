@@ -3,6 +3,7 @@ import { ContactDTO } from '../DTO/ContactDTO';
 import { FolderDTO } from '../DTO/FolderDTO';
 import { MailDTO } from '../DTO/MailDTO';
 import { UserDTO } from '../DTO/UserDTO';
+import { ContactService } from '../Service/Contact/contact.service';
 import { MailService } from '../Service/Mail/mail.service';
 import { UserService } from '../Service/User/user.service';
 
@@ -35,9 +36,10 @@ export class MailsComponent {
   user!: UserDTO;
   selectedMails: MailDTO[] = [];
   activeFolder!: FolderDTO;
+  activeContact!: ContactDTO;
 
-  constructor(public mailService: MailService, public userService: UserService) {}
-
+  constructor(public mailService: MailService, public userService: UserService, public contactService: ContactService) {}
+  
   sortingActions(activeSortings: string[]){
     console.log("sort based on ", activeSortings);
   }
@@ -61,6 +63,7 @@ export class MailsComponent {
       this.postDraft(mail)
     
     else{
+      console.log("mail created")
       this.mailService.create(mail).subscribe(data => {
         console.log(data);
         mail.id = data.id;
@@ -134,5 +137,17 @@ export class MailsComponent {
       console.log("inbox data: ", data);
     });
   } 
+
+  changeActiveContact(contact: ContactDTO){
+    this.activeContact = contact;
+  }
+  
+  updateContact(contact: ContactDTO) {
+    console.log("update contact: ", this.activeContact);
+    this.contactService.update(this.activeContact).subscribe(data => {
+      console.log("contact updated: ", data)
+      
+    })
+  }
 
 }

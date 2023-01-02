@@ -18,8 +18,9 @@ export class MailService {
   create(mail: MailDTO){
     let queryParams = new HttpParams();
     let formParams = new FormData();
-
+    console.log("create mail called: ", mail)
     formParams.append('mail', JSON.stringify(mail))
+
       return this.http.post<MailDTO>(`${this._url}/${this.DTOType}/send`, formParams);
   }
   

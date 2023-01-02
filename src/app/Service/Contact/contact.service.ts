@@ -22,7 +22,7 @@ export class ContactService {
   }
   
   update(contact: ContactDTO){
-    this.http.post(`${this._url}/update/${this.DTOType}`, contact);
+    return this.http.put(`${this._url}/${this.DTOType}/update`, contact);
   }
 
   delete(contact: ContactDTO){

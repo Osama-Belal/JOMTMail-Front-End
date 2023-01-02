@@ -2,7 +2,8 @@
     <mat-icon>{{menuActive ? 'close' : 'view_headline'}}</mat-icon>
 </button>
 
-<app-side-bar [ngClass]="menuActive ? 'active' : ''" [contacts]="contacts" [folders]="folders" (activeFolder)="changeActiveFolder($event)"></app-side-bar>
+<app-side-bar [ngClass]="menuActive ? 'active' : ''" [contacts]="contacts" [folders]="folders" 
+            (activeFolder)="changeActiveFolder($event)" (activeContact)="changeActiveContact($event)"></app-side-bar>
 
 <app-nav-bar (sortingActions)="sortingActions($event)" (search)="searchKeyword($event)"></app-nav-bar>
 
@@ -11,4 +12,4 @@
     [mails]="mails" [folders]="folders" [activeFolder]="activeFolder"></app-inbox>
 
 <app-newComponent-dialog (emitMail)="createMail($event)" (emitContact)="createContact($event)"
-                        (emitFolder)="createFolder($event)"></app-newComponent-dialog>
+                        (emitFolder)="createFolder($event)" (updateContact)="updateContact($event)"></app-newComponent-dialog>

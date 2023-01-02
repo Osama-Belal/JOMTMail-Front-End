@@ -14,6 +14,8 @@ export class SideBarComponent {
   @Input() contacts: ContactDTO[] = [];
   @Input() folders: FolderDTO[] = [];
   @Output() activeFolder = new EventEmitter<FolderDTO>  ();
+  @Output() activeContact = new EventEmitter<ContactDTO>  ();
+  
   constructor(public dialog: MatDialog, public dialogservice: DialogService) { }
   
   openDialog(window: string, update?: boolean, toUpdate?: any) {
@@ -27,6 +29,10 @@ export class SideBarComponent {
   selectFolder(folderIndex: any){
     console.log("my folder index:", folderIndex);
     this.activeFolder.emit(folderIndex);
+  }
+
+  selectContact(contactIndex: any){
+    this.activeContact.emit(contactIndex);
   }
 
 }
