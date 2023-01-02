@@ -1,14 +1,8 @@
 <ul>
-    <mat-chip-listbox aria-label="Fish selection">
-      <mat-chip-option>Sort</mat-chip-option>
-      <mat-chip-option (selectionChange)="emitSortingAction($event, 'Priority')">Priority</mat-chip-option>
-      <mat-chip-option (selectionChange)="emitSortingAction($event, 'Favourite')" color="accent" selected>Favourite</mat-chip-option>
-      <mat-chip-option color="warn">Unread</mat-chip-option>
-    </mat-chip-listbox>
-    <mat-chip-listbox aria-label="Fish selection">
-      <mat-chip-option (selectionChange)="emitSortingAction($event, 'Alphabetically')">Alphabetically</mat-chip-option>
-      <mat-chip-option selected>Priority</mat-chip-option>
-      <mat-chip-option (selectionChange)="emitSortingAction($event, 'Date')" color="accent">Date</mat-chip-option>
-      <mat-chip-option color="warn">Unread</mat-chip-option>
-    </mat-chip-listbox> 
+  <input #search type="search" (keyup)="emitSearch(search.value)">
+  <mat-chip-listbox aria-label="Sorting selection" multiple>
+    <mat-chip-option (selectionChange)="emitSortingAction('priority')">Priority</mat-chip-option>
+    <mat-chip-option (selectionChange)="emitSortingAction('lexi')" color="accent">Alphabetically</mat-chip-option>
+    <mat-chip-option (selectionChange)="emitSortingAction('date')" color="warn">Date</mat-chip-option>
+  </mat-chip-listbox>
 </ul>

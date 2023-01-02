@@ -13,6 +13,7 @@ export class InboxComponent implements OnInit {
 
   mailActive = false;
   activeMail: MailDTO = this.resetActiveMail();
+  allChecked = false;
   selected: any = []
 
   constructor(public dialogservice: DialogService) { }
@@ -24,7 +25,6 @@ export class InboxComponent implements OnInit {
   @Output() selectedMail = new EventEmitter<MailDTO>();
   @Output() selectedMails = new EventEmitter<MailDTO[]>();
 
-  allChecked = false;
 
   ngOnInit(){
     this.emitInboxAction('read');
@@ -49,6 +49,25 @@ export class InboxComponent implements OnInit {
     else
       this.selected = [];
     console.log(this.selected);
+  }
+
+  updateAllComplete(mail: MailDTO) {
+    this.allChecked = this.task.subtasks != null && this.task.subtasks.every(t => t.completed);
+  }
+
+  someComplete(): boolean {
+    if (this.task.subtasks == null) {
+      return false;
+    }
+    return this.task.subtasks.filter(t => t.completed).length > 0 && !this.allComplete;
+  }
+
+  setAll(completed: boolean) {
+    this.allComplete = completed;
+    if (this.task.subtasks == null) {
+      return;
+    }
+    this.task.subtasks.forEach(t => (t.completed = completed));
   }
 
   openDialog(window: string, update?: boolean, mail?: MailDTO) {

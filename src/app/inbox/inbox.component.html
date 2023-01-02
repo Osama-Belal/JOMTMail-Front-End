@@ -5,7 +5,8 @@
                 [showFirstLastButtons]="true" aria-label="Select page">
     </mat-paginator>
     <div class="flex allMails">
-      <input type="checkbox" id="selected" [checked]="allChecked" (change)="selectAllMails($event);allChecked = !allChecked">
+      <mat-checkbox id="selected"[(ngModel)]="allChecked" color="'primary'"
+      (change)="selectAllMails($event);allChecked = !allChecked"></mat-checkbox>
       <button mat-icon-button (click)="emitInboxAction('update')"><mat-icon>refresh</mat-icon></button>
       <button mat-icon-button (click)="emitInboxAction('archive')"><mat-icon>archive</mat-icon></button>
       <button mat-icon-button (click)="emitInboxAction('fav')"><mat-icon>favorite_border</mat-icon></button>
@@ -15,7 +16,8 @@
 
   <li class="flex" *ngFor="let mail of mails.slice(paginator.pageIndex*7, (paginator.pageIndex+1)*7)" 
       (click)="showMail(mail);mailActive = true" (dblclick)="openDialog('mail', true)">
-    <input type="checkbox" id="selected" (change)="selectMail($event, mail)" [checked]="allChecked">
+    <mat-checkbox id="selected" (change)="selectMail($event, mail)" 
+    [(ngModel)]="allChecked" (ngModelChange)="updateAllComplete(mail)"></mat-checkbox>
     <img src='assets/message.png' width="50px" height="50px" style="border-radius: 50%;">
     <h2>{{mail.from}}</h2>
     <p>{{mail.subject}}</p>

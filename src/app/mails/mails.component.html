@@ -4,7 +4,7 @@
 
 <app-side-bar [ngClass]="menuActive ? 'active' : ''" [contacts]="contacts" [folders]="folders" (activeFolder)="changeActiveFolder($event)"></app-side-bar>
 
-<app-nav-bar (sortingActions)="sortingActions($event)"></app-nav-bar>
+<app-nav-bar (sortingActions)="sortingActions($event)" (search)="searchKeyword($event)"></app-nav-bar>
 
 <app-inbox [ngClass]="menuActive ? 'active' : ''" (inboxAction)="CRUD($event)" 
     (selectedMails)="getSelectedMails($event)" (selectedMail)="getSelectedMail($event)" 

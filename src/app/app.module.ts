@@ -6,6 +6,8 @@ import {MatBadgeModule} from '@angular/material/badge';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -65,6 +67,7 @@ import { NewMailComponent } from './newComponent-dialog/newComponent-dialog.comp
         MatPaginatorModule,
         HttpClientModule,
         MatInputModule,
+        MatCheckboxModule,
         FormsModule,
         MatButtonModule,
         MatTooltipModule,

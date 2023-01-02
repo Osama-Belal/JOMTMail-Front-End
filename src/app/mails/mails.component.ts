@@ -38,8 +38,12 @@ export class MailsComponent {
 
   constructor(public mailService: MailService, public userService: UserService) {}
 
-  sortingActions(type: string){
-    console.log("sort based on " + type);
+  sortingActions(activeSortings: string[]){
+    console.log("sort based on ", activeSortings);
+  }
+
+  searchKeyword(keyword: string){
+    console.log(keyword);
   }
 
   getSelectedMails(selected: MailDTO[]){

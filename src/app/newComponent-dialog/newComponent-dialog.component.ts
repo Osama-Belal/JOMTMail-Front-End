@@ -22,7 +22,6 @@ export class NewMailComponent {
   
   important = "Must Enter a Value!"
   mailValid = "Must Enter a Valid Email!"
-  toUpdate = this.dialogservice.toUpdate
   limitLength(ch: number){ return ch + " Characters Only!"}
 
   mailGroup = new FormGroup({
@@ -99,7 +98,7 @@ export class NewMailComponent {
       subject: this.mailGroup.controls.subject.value, 
       content: this.mailGroup.controls.body.value,
       state: "draft",
-      priority:4,
+      priority: this.mailGroup.controls.priority.value?this.mailGroup.controls.priority.value:0,
       isStarred: false
     };
     this.emitMail.emit(mail);
