@@ -124,15 +124,17 @@ export class NewMailComponent {
   @Output() updateContact = new EventEmitter<ContactDTO>();
   submitContact(){
     this.dialogservice.selectedDialog['contact'] = false
+    let contact:ContactDTO = <ContactDTO>{
+      name: this.contactGroup.controls.name.value, 
+      mails: this.contactGroup.controls.mail.value,
+      userId: this.userService.userId
+    };
+    console.log(contact)
     if(this.dialogservice.selectedDialog['update']){
-      this.updateContact.emit();
+      this.updateContact.emit(contact);
     }else{
-      let contact:ContactDTO = <ContactDTO>{
-        name: this.contactGroup.controls.name.value, 
-        mails: this.contactGroup.controls.mail.value,
-        userId: this.userService.userId
-      };
       this.contactService.create(contact).subscribe(data => {
+        console.log(data)
         contact.id = data.id
       })
       this.emitContact.emit(contact);

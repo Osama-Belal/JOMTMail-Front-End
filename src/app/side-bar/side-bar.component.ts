@@ -32,7 +32,7 @@ export class SideBarComponent {
   }
 
   selectContact(contactIndex: any){
-    this.activeContact.emit(contactIndex);
+    this.activeContact.emit(this.contacts[contactIndex]);
   }
 
 }

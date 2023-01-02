@@ -144,7 +144,8 @@ export class MailsComponent {
   
   updateContact(contact: ContactDTO) {
     console.log("update contact: ", this.activeContact);
-    this.contactService.update(this.activeContact).subscribe(data => {
+    contact.id = this.activeContact.id; 
+    this.contactService.update(contact).subscribe(data => {
       console.log("contact updated: ", data)
       
     })
