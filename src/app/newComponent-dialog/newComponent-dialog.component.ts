@@ -22,6 +22,7 @@ export class NewMailComponent {
   
   important = "Must Enter a Value!"
   mailValid = "Must Enter a Valid Email!"
+  toUpdate = this.dialogservice.toUpdate
   limitLength(ch: number){ return ch + " Characters Only!"}
 
   mailGroup = new FormGroup({
@@ -49,6 +50,28 @@ export class NewMailComponent {
     return formgroup.get(field)?.hasError('required') ? this.important : 
     formgroup.get(field)?.hasError('email') ? this.mailValid :
     formgroup.get(field)?.hasError('maxlength') ? this.limitLength(30) : '';
+  }
+
+  fieldUpdateMessage(field: string, formgroup: FormGroup){ 
+    if(!this.dialogservice.selectedDialog['update']) return "";
+    if(formgroup == this.mailGroup){
+      switch(field){
+        case 'to': return this.dialogservice.toUpdate.to;
+        case 'subject': return this.dialogservice.toUpdate.subject;
+        case 'body': return this.dialogservice.toUpdate.content;
+      }
+    }
+    if(formgroup == this.contactGroup){
+      switch(field){
+        case 'name': return this.dialogservice.toUpdate.name;
+        case 'mail': return this.dialogservice.toUpdate.mails;
+      }
+    }
+    if(formgroup == this.folderGroup){
+      switch(field){
+        case 'name': return this.dialogservice.toUpdate.folderName;
+      }
+    }
   }
 
   @Output() emitMail = new EventEmitter<MailDTO>();

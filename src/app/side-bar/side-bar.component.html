@@ -13,12 +13,12 @@
   <li value="Archive"><mat-icon>archive</mat-icon></li>
   <li value="Trash"><mat-icon>delete</mat-icon></li>
   <li *ngFor="let folder of folders;let i as index" 
-      (click)="selectFolder(i)" (dblclick)="openDialog('folder', true)"
+      (click)="selectFolder(i)" (dblclick)="openDialog('folder', true, folder)"
       [attr.value]="folder.folderName"><mat-icon>folder</mat-icon></li>
   <li value="New" (click)="openDialog('folder')"><mat-icon>add</mat-icon></li>
     
   <h4 value="Contacts"></h4>
-  <li *ngFor="let contact of contacts;let i = index" (dblclick)="openDialog('contact', true)" 
+  <li *ngFor="let contact of contacts;let i = index" (dblclick)="openDialog('contact', true, contact)" 
       [attr.value]="contact.name"><mat-icon>person</mat-icon></li>
   <li value="New" (click)="openDialog('contact')"><mat-icon>person_add</mat-icon></li>
 </ul>

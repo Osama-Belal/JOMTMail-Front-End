@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-nav-bar',
@@ -6,6 +7,10 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent {
+
+  sorting = new FormGroup({
+    priority: new FormControl(0, [Validators.required])
+  });
 
   @Output() sortingActions = new EventEmitter<string>();
   emitSortingAction(e: any, type: string){

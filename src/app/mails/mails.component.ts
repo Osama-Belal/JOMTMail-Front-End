@@ -34,7 +34,7 @@ export class MailsComponent {
   contacts: ContactDTO[] = [];
   user!: UserDTO;
   selectedMails: MailDTO[] = [];
-  activeFolder: string = "inbox";
+  activeFolder!: FolderDTO;
 
   constructor(public mailService: MailService, public userService: UserService) {}
 
@@ -124,9 +124,8 @@ export class MailsComponent {
 
   changeActiveFolder(folder: FolderDTO){
     this.mails.splice(0);
-    this.activeFolder = folder.folderName;
-    let myMap = new Map(Object.entries(this.userService.folders));
-    this.mailService.getAllMail(myMap.get(this.activeFolder)).subscribe(data => {
+    this.activeFolder = folder;
+    this.mailService.getAllMail(this.activeFolder.folderId).subscribe(data => {
       this.mails = data;
       console.log("inbox data: ", data);
     });

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output, Input, OnInit } from '@angular/core';
 import { FolderDTO } from '../DTO/FolderDTO';
 import { MailDTO } from '../DTO/MailDTO';
+import { DialogService } from '../Service/Dialog/dialog.service';
 
 @Component({
   selector: 'app-inbox',
@@ -14,8 +15,11 @@ export class InboxComponent implements OnInit {
   activeMail: MailDTO = this.resetActiveMail();
   selected: any = []
 
+  constructor(public dialogservice: DialogService) { }
+
   @Input() mails: MailDTO[] = [];
   @Input() folders: FolderDTO[] = [];
+  @Input() activeFolder!: FolderDTO;
   @Output() inboxAction = new EventEmitter<string>();
   @Output() selectedMail = new EventEmitter<MailDTO>();
   @Output() selectedMails = new EventEmitter<MailDTO[]>();
@@ -45,6 +49,15 @@ export class InboxComponent implements OnInit {
     else
       this.selected = [];
     console.log(this.selected);
+  }
+
+  openDialog(window: string, update?: boolean, mail?: MailDTO) {
+    this.dialogservice.resetAllDialogs();
+    this.dialogservice.selectedDialog[window] = true;
+    if(this.activeFolder.folderName == "draft"){
+      this.dialogservice.selectedDialog['update'] = update;
+      this.dialogservice.toUpdate = mail;
+    }
   }
 
   emitInboxAction(type: string){
