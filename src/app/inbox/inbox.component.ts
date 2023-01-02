@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Output, Input, OnInit } from '@angular/core';
 import { FolderDTO } from '../DTO/FolderDTO';
 import { MailDTO } from '../DTO/MailDTO';
+import { MailService } from '../Service/Mail/mail.service';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-inbox',
@@ -19,8 +21,10 @@ export class InboxComponent implements OnInit {
   @Output() inboxAction = new EventEmitter<string>();
   @Output() selectedMail = new EventEmitter<MailDTO>();
   @Output() selectedMails = new EventEmitter<MailDTO[]>();
-
+  fileUrl: string = "http://localhost:8080/files/96c52ea3-ab32-467c-8b81-9b52a69d610b";
   allChecked = false;
+
+  constructor(public mailService: MailService){}
 
   ngOnInit(){
     this.emitInboxAction('read');
@@ -60,9 +64,16 @@ export class InboxComponent implements OnInit {
   }
 
   resetActiveMail(){
-    return {
-      id: '',from: '',to: '',subject: '',content: '', timestamp: '', 
-      state: '', isStarred: false, priority: 0, senderID: '', receiverID: ''};
+    return new MailDTO();
   }
   
+  downloadFile(){
+    saveAs(this.fileUrl);
+    // this.mailService.download().subscribe(data => {
+    //   console.log("file downloaded: ", data)
+      
+    //   this.fileUrl = data.url
+    // });
+  }
+
 }

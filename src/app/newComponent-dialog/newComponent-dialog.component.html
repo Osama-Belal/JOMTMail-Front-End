@@ -26,7 +26,7 @@
           fieldError('subject', mailGroup) || fieldError('body', mailGroup)">
           {{dialogservice.selectedDialog['update'] ? "Update" : "Send Now"}}<mat-icon>check</mat-icon>
         </button>
-        <input type="file" multiple="true" id="attachment" style="margin-left: 1em;">
+        <input type="file" multiple="true" id="attachment" style="margin-left: 1em;" (change)="addFiles($event)">
         <label for="attachment"><mat-icon>attach_file</mat-icon></label>
       </div>
   

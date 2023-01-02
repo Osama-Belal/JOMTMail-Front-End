@@ -37,6 +37,7 @@ import { NavBarComponent } from "./nav-bar/nav-bar.component";
 import { MailsComponent } from './mails/mails.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { NewMailComponent } from './newComponent-dialog/newComponent-dialog.component';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
 
 @NgModule({
     declarations: [
@@ -75,6 +76,7 @@ import { NewMailComponent } from './newComponent-dialog/newComponent-dialog.comp
         MatBadgeModule,
         MatFormFieldModule,
         MatSlideToggleModule,
+        NgxDocViewerModule,
     ]
 })
 export class AppModule { }

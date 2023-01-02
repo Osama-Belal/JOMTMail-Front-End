@@ -8,5 +8,5 @@ export class MailDTO{
     state: string = 'mail';
     isStarred: boolean = false;
     priority: number = 4;
-
+    attachments!: File[];
 }

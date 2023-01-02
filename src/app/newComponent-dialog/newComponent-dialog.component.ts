@@ -23,6 +23,7 @@ export class NewMailComponent {
   important = "Must Enter a Value!"
   mailValid = "Must Enter a Valid Email!"
   limitLength(ch: number){ return ch + " Characters Only!"}
+  userFiles!: FileList
 
   mailGroup = new FormGroup({
     receiver: new FormControl('', [Validators.required, Validators.email]),
@@ -51,6 +52,7 @@ export class NewMailComponent {
   }
 
   @Output() emitMail = new EventEmitter<MailDTO>();
+  @Output() emitFile = new EventEmitter<FileList>();
   submitMail(){
     this.dialogservice.selectedDialog['mail'] = false
     let mail = <MailDTO>{
@@ -62,8 +64,16 @@ export class NewMailComponent {
       priority:4,
       isStarred: false
     };
+    this.emitFile.emit(this.userFiles);
     this.emitMail.emit(mail);
     this.mailGroup.reset();
+  }
+
+  addFiles(e: any){
+    if(e){
+      this.userFiles = e.target.files
+      console.log("files: ", this.userFiles)
+    }
   }
 
   submitDraft(){

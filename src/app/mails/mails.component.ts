@@ -14,19 +14,6 @@ import { UserService } from '../Service/User/user.service';
 })
 
 export class MailsComponent {
-  ob = {
-    id: '34',
-    from: 'sasdasds',
-    to: 'osama',
-    subject: 'osama',
-    content: 'osama',
-    timestamp: 'osama',
-    state: 'osama',
-    isStarred: true,
-    priority: 4,
-    senderID: 'osama',
-    receiverID: 'osama',
-  };
 
   menuActive = false
   mails: MailDTO[] = [];
@@ -35,6 +22,7 @@ export class MailsComponent {
   user!: UserDTO;
   selectedMails: MailDTO[] = [];
   activeFolder: string = "inbox";
+  userFiles!: FileList;
 
   constructor(public mailService: MailService, public userService: UserService) {}
 
@@ -57,12 +45,16 @@ export class MailsComponent {
       this.postDraft(mail)
     
     else{
-      this.mailService.create(mail).subscribe(data => {
+      this.mailService.create(mail, this.userFiles).subscribe(data => {
         console.log(data);
         mail.id = data.id;
       })
       this.mails.push(mail); 
     }
+  }
+
+  createFile(file: FileList){
+    this.userFiles = file;
   }
 
   postDraft(mail: MailDTO) {
@@ -114,10 +106,10 @@ export class MailsComponent {
         })
           this.mailService.getAllMail(myMap.get("inbox")).subscribe(data => {
             this.mails = data;
-            console.log("inbox data: ", data);
+            console.log("inbox data: ", this.mails);
           });
         break;
-      case 'update': this.createMail(this.ob);break; // this.mailservice.Update();break;
+      case 'update': //this.createMail(this.ob);break; // this.mailservice.Update();break;
       case 'delete' : this.delete();break;
     }
   }

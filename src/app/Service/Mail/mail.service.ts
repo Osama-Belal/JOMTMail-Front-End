@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AttachmentDTO } from 'src/app/DTO/AttachmentDTO';
 import { MailDTO } from 'src/app/DTO/MailDTO';
 import { UserDTO } from 'src/app/DTO/UserDTO';
 import { UserService } from '../User/user.service';
@@ -15,11 +16,14 @@ export class MailService {
 
   constructor(private http: HttpClient, private userService: UserService) { }
 
-  create(mail: MailDTO){
+  create(mail: MailDTO, files: FileList){
     let queryParams = new HttpParams();
     let formParams = new FormData();
-
     formParams.append('mail', JSON.stringify(mail))
+    for(let i = 0; i < files.length; i++){
+      formParams.append('file', <File>files.item(i), files.item(i)?.name)
+    }
+    console.log("parameters: ", formParams)
       return this.http.post<MailDTO>(`${this._url}/${this.DTOType}/send`, formParams);
   }
   
@@ -54,4 +58,9 @@ export class MailService {
   delete(mail: MailDTO){
     this.http.post(`${this._url}/delete/${this.DTOType}`, mail);
   }
+  
+  download(){
+    return this.http.get<AttachmentDTO>(`${this._url}/files`);
+  }
+
 }
