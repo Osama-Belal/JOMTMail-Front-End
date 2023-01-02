@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Output, Input, OnInit } from '@angular/core';
+import { AttachmentDTO } from '../DTO/AttachmentDTO';
 import { FolderDTO } from '../DTO/FolderDTO';
 import { MailDTO } from '../DTO/MailDTO';
 import { DialogService } from '../Service/Dialog/dialog.service';
+import { MailService } from '../Service/Mail/mail.service';
 
 @Component({
   selector: 'app-inbox',
@@ -16,22 +18,26 @@ export class InboxComponent {
   allChecked = false;
   selected: any = []
 
-  constructor(public dialogservice: DialogService) { }
-
+  
   @Input() mails: MailDTO[] = [];
   @Input() folders: FolderDTO[] = [];
   @Input() activeFolder!: FolderDTO;
   @Output() inboxAction = new EventEmitter<string>();
   @Output() selectedMail = new EventEmitter<MailDTO>();
   @Output() selectedMails = new EventEmitter<MailDTO[]>();
-
+  
+  attachments: AttachmentDTO[] = [];
+  
+  constructor(public dialogservice: DialogService, public mailService: MailService) { }
 /* 
   ngOnInit(){
     this.emitInboxAction('read');
   } */
 
-  showMail(mail: any){
+  showMail(mail: MailDTO){
     this.activeMail = mail;
+    console.log("active from top haha ", mail)
+    this.getAttachments();
   }
   
   selectMail(mail: any){
@@ -99,6 +105,25 @@ export class InboxComponent {
 
   resetActiveMail(){
     return new MailDTO();
+  }
+
+  getAttachments(){
+    // console.log("acitove", this.activeMail.mailId)
+    // this.mailService.getAttachments(this.activeMail.mailId).subscribe(data => {
+    //   console.log(data);
+    //   this.attachments = data;
+    //     // saveAs(i.url);
+    // });
+    let att = new AttachmentDTO;
+    att.name = "mock"
+    att.size = 4123;
+    att.url = "http://localhost:8080/attachment/get/fcb1dc82-1b0c-4b9f-8449-f6633c8fca81";
+    this.attachments.push(att)
+    this.attachments.push(att)
+    this.attachments.push(att)
+    this.attachments.push(att)
+    this.attachments.push(att)
+    this.attachments.push(att)
   }
   
 }

@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AttachmentDTO } from 'src/app/DTO/AttachmentDTO';
 import { MailDTO } from 'src/app/DTO/MailDTO';
 import { UserDTO } from 'src/app/DTO/UserDTO';
 import { UserService } from '../User/user.service';
@@ -53,5 +54,10 @@ export class MailService {
 
   delete(mail: MailDTO){
     this.http.post(`${this._url}/delete/${this.DTOType}`, mail);
+  }
+  
+  getAttachments(mailId: string){ 
+    console.log("id", mailId);
+    return this.http.get<AttachmentDTO[]>(`${this._url}/files/${mailId}`);
   }
 }
