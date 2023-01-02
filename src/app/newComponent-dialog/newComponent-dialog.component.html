@@ -28,6 +28,9 @@
           [disabled]="fieldError('receiver', mailGroup) || 
           fieldError('subject', mailGroup) || fieldError('body', mailGroup)">Send Now<mat-icon>check</mat-icon>
         </button>
+        <button *ngIf="dialogservice.selectedDialog['update']" mat-raised-button  [color]="'warn'" 
+          (click)="deleteDialog()">Delete Now<mat-icon>delete</mat-icon>
+        </button>
 
         <input type="file" multiple="true" id="attachment" style="margin-left: 3em">
         <label for="attachment" title="Attach Files"><mat-icon>attach_file</mat-icon></label>
@@ -60,10 +63,16 @@
         <mat-error *ngIf="fieldError('name', folderGroup)">{{fieldErrorMessage('name', folderGroup)}}</mat-error>
       </mat-form-field>
   
-      <button mat-raised-button [color]="'primary'" (click)="submitFolder()" 
-      [disabled]="fieldError('name', folderGroup)">
-        {{dialogservice.selectedDialog['update'] ? "Update" : "Create"}} Folder<mat-icon>check</mat-icon>
-      </button>
+      <div>
+        <button mat-raised-button [color]="'primary'" (click)="submitFolder()" 
+        [disabled]="fieldError('name', folderGroup)">
+          {{dialogservice.selectedDialog['update'] ? "Update" : "Create"}} Folder<mat-icon>check</mat-icon>
+        </button>
+        <button *ngIf="dialogservice.selectedDialog['update']" mat-raised-button [color]="'warn'" 
+        style="margin-left: 2em;" (click)="deleteDialog()">
+          Delete Folder<mat-icon>delete</mat-icon>
+        </button>
+      </div>
   
       <button mat-icon-button (click)="dialogservice.selectedDialog['folder'] = false;" 
               style="position: absolute;top: 3%;right: 3%;">
@@ -91,11 +100,15 @@
                 value="{{fieldUpdateMessage('mail', contactGroup)}}" required>
         <mat-error *ngIf="fieldError('mail', contactGroup)">{{fieldErrorMessage('mail', contactGroup)}}</mat-error>
       </mat-form-field>
-  
-      <button mat-raised-button [color]="'primary'" (click)="submitContact()" 
-              [disabled]="fieldError('name', contactGroup) || fieldError('mail', contactGroup)">
-        {{dialogservice.selectedDialog['update'] ? "Update" : "Create"}} Contact<mat-icon>check</mat-icon>
-      </button>
+      <div>
+        <button mat-raised-button [color]="'primary'" (click)="submitContact()" 
+                [disabled]="fieldError('name', contactGroup) || fieldError('mail', contactGroup)">
+          {{dialogservice.selectedDialog['update'] ? "Update" : "Create"}} Contact<mat-icon>check</mat-icon>
+        </button>
+        <button *ngIf="dialogservice.selectedDialog['update']" mat-raised-button [color]="'warn'" 
+        style="margin-left: 2em;" (click)="deleteDialog()">Delete Contact<mat-icon>delete</mat-icon>
+        </button>
+      </div>
 
       <button mat-icon-button (click)="dialogservice.selectedDialog['contact'] = false;" 
               style="position: absolute;top: 3%;right: 3%;">
