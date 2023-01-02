@@ -21,7 +21,7 @@ export class InboxComponent implements OnInit {
   @Output() inboxAction = new EventEmitter<string>();
   @Output() selectedMail = new EventEmitter<MailDTO>();
   @Output() selectedMails = new EventEmitter<MailDTO[]>();
-  fileUrl: string = "http://localhost:8080/files/96c52ea3-ab32-467c-8b81-9b52a69d610b";
+  fileUrl: string = "af9bf1fb-3cf6-4894-b044-7ec96da88a8e";
   allChecked = false;
 
   constructor(public mailService: MailService){}
@@ -68,12 +68,10 @@ export class InboxComponent implements OnInit {
   }
   
   downloadFile(){
-    saveAs(this.fileUrl);
-    // this.mailService.download().subscribe(data => {
-    //   console.log("file downloaded: ", data)
-      
-    //   this.fileUrl = data.url
-    // });
+    this.mailService.download(this.fileUrl).subscribe(data => {
+      // console.log("file downloaded: ", data)
+      saveAs(data);
+    });
   }
 
 }
