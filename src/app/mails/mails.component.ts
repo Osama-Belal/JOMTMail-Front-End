@@ -34,7 +34,12 @@ export class MailsComponent implements OnInit {
 
   constructor(public mailService: MailService, public userService: UserService, public contactService: ContactService, public folderService: FolderService) {}
   
-  sortingActions(activeSortings: string[]){
+  sortingActions(activeSortings: string){
+    switch(activeSortings){
+    case 'priority': this.mails.sort((a, b) => (a.priority > b.priority) ? 1 : ((b.priority > a.priority) ? -1 : 0));break;
+    case 'lexi': this.mails.sort((a, b) => (a.subject > b.subject) ? 1 : ((b.subject > a.subject) ? -1 : 0));break;
+    case 'date': this.mails.sort((a, b) => (a.timestamp > b.timestamp) ? 1 : ((b.timestamp > a.timestamp) ? -1 : 0));break;
+  }
     console.log("sort based on ", activeSortings);
   }
 
