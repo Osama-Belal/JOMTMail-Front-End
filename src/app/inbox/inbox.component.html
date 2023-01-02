@@ -8,7 +8,6 @@
       <mat-checkbox id="selected" [checked]="allChecked" color="'primary'" [indeterminate]="someSelected()"
       (change)="allChecked = !allChecked;selectAllMails()"></mat-checkbox>
       <button mat-icon-button (click)="emitInboxAction('update')"><mat-icon>refresh</mat-icon></button>
-      <button mat-icon-button (click)="emitInboxAction('archive')"><mat-icon>archive</mat-icon></button>
       <button mat-icon-button (click)="emitInboxAction('fav')"><mat-icon>favorite_border</mat-icon></button>
       <button mat-icon-button (click)="emitInboxAction('delete')"><mat-icon>delete</mat-icon></button>
     </div>
@@ -41,7 +40,7 @@
         {{folder.folderName}}</button>
     </mat-menu>
 
-    <button mat-icon-button (click)="mailActive = false"><mat-icon>favorite_border</mat-icon></button>
+    <button mat-icon-button (click)="emitMailAction('fav', activeMail)"><mat-icon>favorite_border</mat-icon></button>
     <button mat-icon-button (click)="emitMailAction('delete', activeMail)"><mat-icon>delete</mat-icon></button>
     <button mat-icon-button (click)="mailActive = false"><mat-icon>close</mat-icon></button>
   </div>
