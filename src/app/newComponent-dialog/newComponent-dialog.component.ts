@@ -121,14 +121,16 @@ export class NewMailComponent {
       userId: this.userService.userId
     };
 
-    this.folderService.create(folder).subscribe(data => {
-      folder.folderId = data.folderId;
-    })
-
+    
     if(this.dialogservice.selectedDialog['update'])
-      this.updateFolder.emit(folder);
-    else 
+    this.updateFolder.emit(folder);
+    else{
+      this.folderService.create(folder).subscribe(data => {
+        folder.folderId = data.folderId;
+        console.log("folder created: ", folder);
+      })
       this.emitFolder.emit(folder);
+    } 
     this.folderGroup.reset();
     this.dialogservice.selectedDialog['update'] = false
   }

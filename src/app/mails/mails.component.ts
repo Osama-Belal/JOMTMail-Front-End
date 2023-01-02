@@ -122,6 +122,7 @@ export class MailsComponent implements OnInit {
   }
 
   getAllFolders(){
+    console.log(this.userService.userId);
     let myMap = new Map(Object.entries(this.userService.folders));
     console.log(myMap);
 
