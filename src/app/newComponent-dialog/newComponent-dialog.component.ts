@@ -94,6 +94,7 @@ export class NewMailComponent {
   submitDraft(){
     this.dialogservice.selectedDialog['mail'] = false
     let mail = <MailDTO>{
+      id: this.dialogservice.toUpdate.id?this.dialogservice.toUpdate.id:'',
       from: this.userService.userEmail,
       to: this.mailGroup.controls.receiver.value, 
       subject: this.mailGroup.controls.subject.value, 
@@ -115,14 +116,17 @@ export class NewMailComponent {
   submitFolder(){
     this.dialogservice.selectedDialog['folder'] = false
     let folder = <FolderDTO>{
+      folderId: this.dialogservice.toUpdate.folderId?this.dialogservice.toUpdate.folderId:'',
       folderName: this.folderGroup.controls.name.value,
       userId: this.userService.userId
     };
+
     this.folderService.create(folder).subscribe(data => {
       folder.folderId = data.folderId;
     })
+
     if(this.dialogservice.selectedDialog['update'])
-      this.updateFolder.emit();
+      this.updateFolder.emit(folder);
     else 
       this.emitFolder.emit(folder);
     this.folderGroup.reset();
@@ -133,20 +137,21 @@ export class NewMailComponent {
   @Output() updateContact = new EventEmitter<ContactDTO>();
   submitContact(){
     this.dialogservice.selectedDialog['contact'] = false
-    if(this.dialogservice.selectedDialog['update'])
-      this.updateContact.emit();
+    let contact:ContactDTO = <ContactDTO>{
+      name: this.contactGroup.controls.name.value, 
+      mails: this.contactGroup.controls.mail.value,
+      userId: this.userService.userId
+    };
     
-    else{
-      let contact:ContactDTO = <ContactDTO>{
-        name: this.contactGroup.controls.name.value, 
-        mails: this.contactGroup.controls.mail.value,
-        userId: this.userService.userId
-      };
-      this.contactService.create(contact).subscribe(data => {
-        contact.id = data.id
-      })
+    this.contactService.create(contact).subscribe(data => {
+      contact.id = data.id
+    })
+    
+    if(this.dialogservice.selectedDialog['update'])
+      this.updateContact.emit(contact);
+    else
       this.emitContact.emit(contact);
-    }
+    
     this.contactGroup.reset();
     this.dialogservice.selectedDialog['update'] = false
   }

@@ -5,21 +5,21 @@
       <mat-form-field class="field">
         <mat-label>To</mat-label>
         <input matInput placeholder="pat@jomt.com" formControlName="receiver" 
-                [value]="{{fieldUpdateMessage('to', mailGroup)}}" required>
+                value="{{fieldUpdateMessage('to', mailGroup)}}" required>
         <mat-error *ngIf="fieldError('receiver', mailGroup)">{{fieldErrorMessage('receiver', mailGroup)}}</mat-error>
       </mat-form-field>
       
       <mat-form-field  class="field">
         <mat-label>Subject</mat-label>
         <input matInput placeholder="What's this all about?" formControlName="subject"
-                [value]="{{fieldUpdateMessage('subject', mailGroup)}}" required>
+                value="{{fieldUpdateMessage('subject', mailGroup)}}" required>
         <mat-error *ngIf="fieldError('subject', mailGroup)">{{fieldErrorMessage('subject', mailGroup)}}</mat-error>
       </mat-form-field>
         
       <mat-form-field class="mailBody">
         <mat-label>Write Your Message</mat-label>
         <textarea matInput placeholder="Always starts with kind words" formControlName="body" 
-                  [value]="{{fieldUpdateMessage('body', mailGroup)}}"  required></textarea>
+                  value="{{fieldUpdateMessage('body', mailGroup)}}"  required></textarea>
         <mat-error *ngIf="fieldError('body', mailGroup)">{{fieldErrorMessage('body', mailGroup)}}</mat-error>
       </mat-form-field>
   
@@ -56,7 +56,7 @@
       <mat-form-field class="field">
         <mat-label>Name</mat-label>
         <input matInput placeholder="Folder Name" formControlName="name"  
-        [value]="{{fieldUpdateMessage('name', folderGroup)}}" required>
+        value="{{fieldUpdateMessage('name', folderGroup)}}" required>
         <mat-error *ngIf="fieldError('name', folderGroup)">{{fieldErrorMessage('name', folderGroup)}}</mat-error>
       </mat-form-field>
   
@@ -81,14 +81,14 @@
       <mat-form-field class="field">
         <mat-label>Name</mat-label>
         <input matInput placeholder="Contact Name" formControlName="name"
-                [value]="{{fieldUpdateMessage('name', contactGroup)}}" required>
+                value="{{fieldUpdateMessage('name', contactGroup)}}" required>
         <mat-error *ngIf="fieldError('name', contactGroup)">{{fieldErrorMessage('name', contactGroup)}}</mat-error>
       </mat-form-field>
       
       <mat-form-field class="field">
         <mat-label>Mail</mat-label>
         <input matInput placeholder="Contact Mail" formControlName="mail"
-                [value]="{{fieldUpdateMessage('mail', contactGroup)}}" required>
+                value="{{fieldUpdateMessage('mail', contactGroup)}}" required>
         <mat-error *ngIf="fieldError('mail', contactGroup)">{{fieldErrorMessage('mail', contactGroup)}}</mat-error>
       </mat-form-field>
   
