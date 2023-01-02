@@ -84,6 +84,7 @@ export class NewMailComponent {
   @Output() emitFolder = new EventEmitter<FolderDTO>();
   submitFolder(){
     this.dialogservice.selectedDialog['folder'] = false
+    this.dialogservice.selectedDialog['update'] = false
     let folder = <FolderDTO>{
       folderName: this.folderGroup.controls.name.value,
       userId: this.userService.userId
@@ -98,16 +99,17 @@ export class NewMailComponent {
   @Output() emitContact = new EventEmitter<ContactDTO>();
   submitContact(){
     this.dialogservice.selectedDialog['contact'] = false
+    this.dialogservice.selectedDialog['update'] = false
     let contact:ContactDTO = <ContactDTO>{
       name: this.contactGroup.controls.name.value, 
       mails: this.contactGroup.controls.mail.value,
       userId: this.userService.userId
-  };
+    };
     this.contactService.create(contact).subscribe(data => {
       contact.id = data.id
-      this.emitContact.emit(contact);
-      this.contactGroup.reset();
-      console.log("contact created: ", contact);
     })
+    this.emitContact.emit(contact);
+    this.contactGroup.reset();
+    console.log("contact created: ", contact);
   }
 }

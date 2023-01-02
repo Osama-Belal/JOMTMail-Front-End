@@ -13,10 +13,13 @@ export class DialogService {
   constructor(mailservice: MailService,
               contactservice: ContactService) { }
 
+  toUpdate!: any
+  
   selectedDialog: any = {
     'mail': false,
     'folder': false,
     'contact': false,
+    'update': false
   }
 
   resetAllDialogs(){
@@ -24,6 +27,7 @@ export class DialogService {
       'mail': false,
       'folder': false,
       'contact': false,
+      'update': false
     }
   }
 }

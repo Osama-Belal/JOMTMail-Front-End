@@ -53,9 +53,10 @@ export class MailsComponent {
   }
   
   createMail(mail: MailDTO){
-    if (mail.state == "draft"){
+    if (mail.state == "draft")
       this.postDraft(mail)
-    }else{
+    
+    else{
       this.mailService.create(mail).subscribe(data => {
         console.log(data);
         mail.id = data.id;
@@ -99,7 +100,6 @@ export class MailsComponent {
                 this.mails.splice(i, 1);
               }
             }
-
          });
          break;
       // case 'r': this.mailservice.Read();break;
@@ -122,9 +122,9 @@ export class MailsComponent {
     }
   }
 
-  changeActiveFolder(e: FolderDTO){
+  changeActiveFolder(folder: FolderDTO){
     this.mails.splice(0);
-    this.activeFolder = e.folderName;
+    this.activeFolder = folder.folderName;
     let myMap = new Map(Object.entries(this.userService.folders));
     this.mailService.getAllMail(myMap.get(this.activeFolder)).subscribe(data => {
       this.mails = data;

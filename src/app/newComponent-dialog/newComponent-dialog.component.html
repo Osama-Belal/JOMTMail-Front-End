@@ -24,15 +24,10 @@
         <button mat-raised-button  [color]="'primary'" (click)="submitMail()"
           [disabled]="fieldError('receiver', mailGroup) || 
           fieldError('subject', mailGroup) || fieldError('body', mailGroup)">
-          Send Now<mat-icon>check</mat-icon>
+          {{dialogservice.selectedDialog['update'] ? "Update" : "Send Now"}}<mat-icon>check</mat-icon>
         </button>
         <input type="file" multiple="true" id="attachment" style="margin-left: 1em;">
-        <label for="attachment"><button mat-icon-button ><mat-icon>attach_file</mat-icon></button></label>
-        <button mat-icon-button ><mat-icon>format_bold</mat-icon></button>
-        <button mat-icon-button ><mat-icon>format_italic</mat-icon></button>
-        <button mat-icon-button ><mat-icon>format_underlined</mat-icon></button>
-        <button mat-icon-button ><mat-icon>insert_photo</mat-icon></button>
-        <button mat-icon-button ><mat-icon>navigate_next</mat-icon></button>
+        <label for="attachment"><mat-icon>attach_file</mat-icon></label>
       </div>
   
       <button mat-icon-button (click)="submitDraft();dialogservice.selectedDialog['mail'] = false" 
@@ -56,7 +51,7 @@
   
       <button mat-raised-button [color]="'primary'" (click)="submitFolder()" 
       [disabled]="fieldError('name', folderGroup)">
-        Create<mat-icon>check</mat-icon>
+        {{dialogservice.selectedDialog['update'] ? "Update" : "Create"}} Folder<mat-icon>check</mat-icon>
       </button>
   
       <button mat-icon-button (click)="dialogservice.selectedDialog['folder'] = false;" 
@@ -86,7 +81,7 @@
   
       <button mat-raised-button [color]="'primary'" (click)="submitContact()" 
               [disabled]="fieldError('name', contactGroup) || fieldError('mail', contactGroup)">
-        Create<mat-icon>check</mat-icon>
+        {{dialogservice.selectedDialog['update'] ? "Update" : "Create"}} Contact<mat-icon>check</mat-icon>
       </button>
 
       <button mat-icon-button (click)="dialogservice.selectedDialog['contact'] = false;" 

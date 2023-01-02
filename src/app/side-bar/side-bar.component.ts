@@ -16,15 +16,15 @@ export class SideBarComponent {
   @Output() activeFolder = new EventEmitter<FolderDTO>  ();
   constructor(public dialog: MatDialog, public dialogservice: DialogService) { }
   
-  openDialog(window: string) {
+  openDialog(window: string, update?: boolean) {
     this.dialogservice.resetAllDialogs();
     this.dialogservice.selectedDialog[window] = true;
+    this.dialogservice.selectedDialog['update'] = update;
   }
 
   selectFolder(folderIndex: any){
     console.log("my folder index:", folderIndex);
     this.activeFolder.emit(folderIndex);
-
   }
 
 }

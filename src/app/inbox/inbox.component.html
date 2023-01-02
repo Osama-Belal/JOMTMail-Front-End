@@ -6,7 +6,7 @@
     </mat-paginator>
     <div class="flex allMails">
       <input type="checkbox" id="selected" [checked]="allChecked" (change)="selectAllMails($event);allChecked = !allChecked">
-      <button mat-icon-button (click)="emitInboxAction('get')"><mat-icon>refresh</mat-icon></button>
+      <button mat-icon-button (click)="emitInboxAction('update')"><mat-icon>refresh</mat-icon></button>
       <button mat-icon-button (click)="emitInboxAction('archive')"><mat-icon>archive</mat-icon></button>
       <button mat-icon-button (click)="emitInboxAction('fav')"><mat-icon>favorite_border</mat-icon></button>
       <button mat-icon-button (click)="emitInboxAction('delete')"><mat-icon>delete</mat-icon></button>
@@ -28,19 +28,25 @@
 
 <div class="mailPreview" [ngClass]="mailActive ? 'active' : ''">
   <div class="flex icons">
-    <button mat-icon-button (click)="emitMailAction('create', active)"><mat-icon>check</mat-icon></button>
+    <button mat-icon-button (click)="emitMailAction('create', activeMail)"><mat-icon>check</mat-icon></button>
     <button mat-icon-button (click)="mailActive = false"><mat-icon>refresh</mat-icon></button>
-    <button mat-icon-button (click)="mailActive = false"><mat-icon>drafts</mat-icon></button>
+
+    <button mat-icon-button [matMenuTriggerFor]="folderList"><mat-icon>folder</mat-icon></button>
+    <mat-menu #folderList="matMenu">
+      <button mat-menu-item *ngFor="let folder of folders" (click)="emitMailAction('folder', activeMail, folder)">
+        {{folder.folderName}}</button>
+    </mat-menu>
+
     <button mat-icon-button (click)="mailActive = false"><mat-icon>favorite_border</mat-icon></button>
-    <button mat-icon-button (click)="emitMailAction('delete', active)"><mat-icon>delete</mat-icon></button>
+    <button mat-icon-button (click)="emitMailAction('delete', activeMail)"><mat-icon>delete</mat-icon></button>
     <button mat-icon-button (click)="mailActive = false"><mat-icon>close</mat-icon></button>
   </div>
   <div class="flex">
     <img src='assets/message.png' width="50px" height="50px" style="border-radius: 50%;">
     <div class="flex col">
-      <h2>{{active.id}}</h2>
-      <h4>{{active.subject}}</h4>
+      <h2>{{activeMail.from}}</h2>
+      <h4>{{activeMail.subject}}</h4>
     </div>
   </div>
-  <p>{{active.content}}</p>
+  <p>{{activeMail.content}}</p>
 </div>

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output, Input, OnInit } from '@angular/core';
+import { FolderDTO } from '../DTO/FolderDTO';
 import { MailDTO } from '../DTO/MailDTO';
 
 @Component({
@@ -10,10 +11,11 @@ import { MailDTO } from '../DTO/MailDTO';
 export class InboxComponent implements OnInit {
 
   mailActive = false;
-  active: MailDTO = this.resetActiveMail();
+  activeMail: MailDTO = this.resetActiveMail();
   selected: any = []
 
   @Input() mails: MailDTO[] = [];
+  @Input() folders: FolderDTO[] = [];
   @Output() inboxAction = new EventEmitter<string>();
   @Output() selectedMail = new EventEmitter<MailDTO>();
   @Output() selectedMails = new EventEmitter<MailDTO[]>();
@@ -25,7 +27,7 @@ export class InboxComponent implements OnInit {
   }
 
   showMail(mail: any){
-    this.active = mail;
+    this.activeMail = mail;
   }
   
   selectMail(e: any, mail: any){
@@ -50,9 +52,9 @@ export class InboxComponent implements OnInit {
     this.inboxAction.emit(type);
   }
   
-  emitMailAction(type: string, mail: MailDTO){
+  emitMailAction(type: string, mail: MailDTO, folder?: FolderDTO){
     this.mailActive = false;
-    this.active = this.resetActiveMail();
+    this.activeMail = this.resetActiveMail();
     this.selectedMail.emit(mail);
     this.inboxAction.emit(type);
   }
