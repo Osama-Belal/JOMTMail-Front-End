@@ -90,6 +90,7 @@ export class NewMailComponent {
     this.mailGroup.reset();
   }
 
+  @Output() updateDraft = new EventEmitter<MailDTO>();
   submitDraft(){
     this.dialogservice.selectedDialog['mail'] = false
     let mail = <MailDTO>{
@@ -101,14 +102,18 @@ export class NewMailComponent {
       priority: this.mailGroup.controls.priority.value?this.mailGroup.controls.priority.value:0,
       isStarred: false
     };
-    this.emitMail.emit(mail);
+    if(this.dialogservice.selectedDialog['update'])
+      this.updateDraft.emit(mail);
+    else
+      this.emitMail.emit(mail);
     this.mailGroup.reset();
+    this.dialogservice.selectedDialog['update'] = false
   }
 
   @Output() emitFolder = new EventEmitter<FolderDTO>();
+  @Output() updateFolder = new EventEmitter<FolderDTO>();
   submitFolder(){
     this.dialogservice.selectedDialog['folder'] = false
-    this.dialogservice.selectedDialog['update'] = false
     let folder = <FolderDTO>{
       folderName: this.folderGroup.controls.name.value,
       userId: this.userService.userId
@@ -116,17 +121,22 @@ export class NewMailComponent {
     this.folderService.create(folder).subscribe(data => {
       folder.folderId = data.folderId;
     })
-    this.emitFolder.emit(folder);
+    if(this.dialogservice.selectedDialog['update'])
+      this.updateFolder.emit();
+    else 
+      this.emitFolder.emit(folder);
     this.folderGroup.reset();
+    this.dialogservice.selectedDialog['update'] = false
   }
   
   @Output() emitContact = new EventEmitter<ContactDTO>();
   @Output() updateContact = new EventEmitter<ContactDTO>();
   submitContact(){
     this.dialogservice.selectedDialog['contact'] = false
-    if(this.dialogservice.selectedDialog['update']){
+    if(this.dialogservice.selectedDialog['update'])
       this.updateContact.emit();
-    }else{
+    
+    else{
       let contact:ContactDTO = <ContactDTO>{
         name: this.contactGroup.controls.name.value, 
         mails: this.contactGroup.controls.mail.value,
