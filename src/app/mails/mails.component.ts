@@ -89,9 +89,11 @@ export class MailsComponent implements OnInit {
   
   deleteSelectedMails(){
     for(var i = 0;i < this.mails.length;i++){
-      for(var selected of this.selectedMails){
-        if(JSON.stringify(this.mails[i]) == JSON.stringify(selected))
+      for(let selected of this.selectedMails){
+        if(JSON.stringify(this.mails[i]) == JSON.stringify(selected)){
+          this.deleteDTO(selected)
           this.mails.splice(i, 1);
+        }
       }
     }
   }
@@ -114,10 +116,7 @@ export class MailsComponent implements OnInit {
     }
     else if(obj.folderName){
       this.folderService.delete(obj).subscribe(data => {});
-      for(let i = 0;i < this.folders.length;i++){
-        if(JSON.stringify(obj) == JSON.stringify(this.folders[i]))
-          this.folders.splice(i, 1);break;
-      }
+      this.getAllFolders();
     }
   }
 
@@ -134,20 +133,18 @@ export class MailsComponent implements OnInit {
          });
          break;
       // case 'r': this.mailservice.Read();break;
-      case 'read': 
-          this.getAllFolders();
-          break;
-          case 'update': //this.createMail(this.ob);break; // this.mailservice.Update();break;
-          case 'delete' : this.deleteSelectedMails();break;
-        }
-      }
+      case 'read': this.getAllFolders();break;
+        case 'fav': //this.createMail(this.ob);break; // this.mailservice.Update();break;
+        case 'delete' : this.deleteSelectedMails();break;
+    }
+  }
       
   contactsCrud(action: string){
-      switch(action){
-        case 'create': break;
-        case 'read': this.getAllContacts(); break;
-        case 'update': break;
-        case 'delete': break; 
+    switch(action){
+      case 'create': break;
+      case 'read': this.getAllContacts(); break;
+      case 'update': break;
+      case 'delete': break; 
     }
   }
 
@@ -155,7 +152,7 @@ export class MailsComponent implements OnInit {
     console.log(this.userService.userId);
     let myMap = new Map(Object.entries(this.userService.folders));
     console.log(myMap);
-
+    this.folders = [];
     myMap.forEach((value:any, key:any) =>{
       let folder = new FolderDTO();
       folder.folderId = value;
