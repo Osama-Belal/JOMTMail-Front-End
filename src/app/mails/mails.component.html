@@ -7,7 +7,7 @@
 
 <app-nav-bar (sortingActions)="sortingActions($event)" (search)="searchKeyword($event)"></app-nav-bar>
 
-<app-inbox [ngClass]="menuActive ? 'active' : ''" (inboxAction)="mailCrud($event)"  (deleteDTO)="deleteDTO($event"
+<app-inbox [ngClass]="menuActive ? 'active' : ''" (inboxAction)="mailCrud($event)"
     (selectedMails)="getSelectedMails($event)" (selectedMail)="getSelectedMail($event)" 
     [mails]="mails" [folders]="folders" [activeFolder]="activeFolder"></app-inbox>
 

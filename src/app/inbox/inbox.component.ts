@@ -98,9 +98,9 @@ export class InboxComponent {
   
   emitMailAction(type: string, folder?: FolderDTO){
     this.mailActive = false;
-    this.activeMail = this.resetActiveMail();
     this.selectedMail.emit(this.activeMail);
     this.inboxAction.emit(type);
+    this.activeMail = this.resetActiveMail();
   }
 
   changeMailFolder(folder: FolderDTO){
