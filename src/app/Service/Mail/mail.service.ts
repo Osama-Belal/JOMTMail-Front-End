@@ -54,7 +54,7 @@ export class MailService {
   }
 
   delete(mail: MailDTO){
-    this.http.post(`${this._url}/delete/${this.DTOType}`, mail);
+    return this.http.post(`${this._url}/delete/${this.DTOType}`, mail);
   }
   
   getAttachments(mailId: string){ 
