@@ -24,7 +24,7 @@ export class FolderService {
     return this.http.put<FolderDTO>(`${this._url}/${this.DTOType}/rename`, folder)
   }
   delete(folder: FolderDTO){
-    return this.http.post<FolderDTO>(`${this._url}/${this.DTOType}/register`, folder)
+    return this.http.post<FolderDTO>(`${this._url}/${this.DTOType}/delete/${folder.folderId}`, folder)
   }
   
 }

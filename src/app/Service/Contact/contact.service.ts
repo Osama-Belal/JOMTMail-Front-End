@@ -30,7 +30,7 @@ export class ContactService {
   }
 
   delete(contact: ContactDTO){
-    return this.http.post(`${this._url}/delete/${this.DTOType}`, contact);
+    return this.http.post(`${this._url}/${this.DTOType}/delete/${contact.id}`, contact);
   }
   
 }

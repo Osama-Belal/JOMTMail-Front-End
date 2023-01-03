@@ -53,8 +53,9 @@ export class MailService {
     return this.http.put(`${this._url}/update/${this.DTOType}`, mail);
   }
 
-  delete(mail: MailDTO){
-    return this.http.post(`${this._url}/delete/${this.DTOType}`, mail);
+  delete(userId:string, mail: MailDTO, folderId: string){
+    console.log('delete called')
+    return this.http.delete(`${this._url}/${this.DTOType}/delete/${userId}/${folderId}/${mail.mailId}`);
   }
   
   getAttachments(mailId: string){ 

@@ -98,20 +98,20 @@ export class MailsComponent implements OnInit {
 
   deleteDTO(obj: any){
     if(obj.subject){
-      this.mailService.delete(obj).subscribe(data => {});
+      this.mailService.delete(this.userService.userId, obj, this.activeFolder.folderId).subscribe(data => {});
       for(let i = 0;i < this.mails.length;i++){
         if(JSON.stringify(obj) == JSON.stringify(this.mails[i]))
           this.mails.splice(i, 1);break;
       }
     }
-    if(obj.name){
+    else if(obj.name){
       this.contactService.delete(obj).subscribe(data => {});
       for(let i = 0;i < this.contacts.length;i++){
         if(JSON.stringify(obj) == JSON.stringify(this.contacts[i]))
           this.contacts.splice(i, 1);break;
       }
     }
-    if(obj.folderName){
+    else if(obj.folderName){
       this.folderService.delete(obj).subscribe(data => {});
       for(let i = 0;i < this.folders.length;i++){
         if(JSON.stringify(obj) == JSON.stringify(this.folders[i]))
