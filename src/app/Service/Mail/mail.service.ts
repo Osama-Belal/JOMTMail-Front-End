@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AttachmentDTO } from 'src/app/DTO/AttachmentDTO';
+import { FolderDTO } from 'src/app/DTO/FolderDTO';
 import { MailDTO } from 'src/app/DTO/MailDTO';
 import { UserDTO } from 'src/app/DTO/UserDTO';
 import { UserService } from '../User/user.service';
@@ -60,4 +61,10 @@ export class MailService {
     console.log("id", mailId);
     return this.http.get<AttachmentDTO[]>(`${this._url}/files/${mailId}`);
   }
+  
+  addMailToFolder(mail: MailDTO, folder: FolderDTO){
+    mail.folderId = folder.folderId;
+    return this.http.put(`${this._url}/${this.DTOType}/add_to_folder`, mail);
+  }
+
 }

@@ -1,5 +1,6 @@
 export class MailDTO{
     mailId: string = "";
+    folderId: string = "";
     from: string = "";
     to: string = "";
     subject: string = "";

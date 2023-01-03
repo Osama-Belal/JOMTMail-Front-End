@@ -31,15 +31,15 @@
 
 <div class="mailPreview" [ngClass]="mailActive ? 'active' : ''">
   <div class="flex icons">
-    <button mat-icon-button (click)="emitMailAction('create', activeMail)"><mat-icon>check</mat-icon></button>
+    <button mat-icon-button (click)="emitMailAction('create')"><mat-icon>check</mat-icon></button>
     <button mat-icon-button [matMenuTriggerFor]="folderList"><mat-icon>folder</mat-icon></button>
     <mat-menu #folderList="matMenu">
-      <button mat-menu-item *ngFor="let folder of folders" (click)="emitMailAction('folder', activeMail, folder)">
+      <button mat-menu-item *ngFor="let folder of folders" (click)="changeMailFolder(folder)">
         {{folder.folderName}}</button>
     </mat-menu>
 
-    <button mat-icon-button (click)="emitMailAction('fav', activeMail)"><mat-icon>favorite_border</mat-icon></button>
-    <button mat-icon-button (click)="emitMailAction('delete', activeMail)"><mat-icon>delete</mat-icon></button>
+    <button mat-icon-button (click)="emitMailAction('fav')"><mat-icon>favorite_border</mat-icon></button>
+    <button mat-icon-button (click)="emitMailAction('delete')"><mat-icon>delete</mat-icon></button>
     <button mat-icon-button (click)="mailActive = false"><mat-icon>close</mat-icon></button>
   </div>
   <div class="flex">

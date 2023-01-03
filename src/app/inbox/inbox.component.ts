@@ -96,11 +96,18 @@ export class InboxComponent {
     this.inboxAction.emit(type);
   }
   
-  emitMailAction(type: string, mail: MailDTO, folder?: FolderDTO){
+  emitMailAction(type: string, folder?: FolderDTO){
     this.mailActive = false;
     this.activeMail = this.resetActiveMail();
-    this.selectedMail.emit(mail);
+    this.selectedMail.emit(this.activeMail);
     this.inboxAction.emit(type);
+  }
+
+  changeMailFolder(folder: FolderDTO){
+    console.log(folder);
+    this.mailService.addMailToFolder(this.activeMail, folder).subscribe(data => {
+        console.log("mail changed location ", data);
+    })
   }
 
   resetActiveMail(){
@@ -108,22 +115,13 @@ export class InboxComponent {
   }
 
   getAttachments(){
-    // console.log("acitove", this.activeMail.mailId)
-    // this.mailService.getAttachments(this.activeMail.mailId).subscribe(data => {
-    //   console.log(data);
-    //   this.attachments = data;
-    //     // saveAs(i.url);
-    // });
-    let att = new AttachmentDTO;
-    att.name = "mock"
-    att.size = 4123;
-    att.url = "http://localhost:8080/attachment/get/fcb1dc82-1b0c-4b9f-8449-f6633c8fca81";
-    this.attachments.push(att)
-    this.attachments.push(att)
-    this.attachments.push(att)
-    this.attachments.push(att)
-    this.attachments.push(att)
-    this.attachments.push(att)
+    console.log("acitove", this.activeMail.mailId)
+    this.mailService.getAttachments(this.activeMail.mailId).subscribe(data => {
+      console.log(data);
+      this.attachments = data;
+        // saveAs(i.url);
+    });
+
   }
   
 }
