@@ -67,5 +67,9 @@ export class MailService {
     mail.folderId = folder.folderId;
     return this.http.put(`${this._url}/${this.DTOType}/add_to_folder`, mail);
   }
+  
+  searchBySubject(folderId: string, userInput: string){
+    return this.http.get<MailDTO[]>(`${this._url}/${this.DTOType}/searchBySubject/${folderId}/${userInput}`);
+  }
 
 }

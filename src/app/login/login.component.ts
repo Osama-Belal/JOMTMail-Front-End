@@ -57,6 +57,7 @@ export class LoginComponent {
       this.userService.userId = data.id;
       this.userService.userEmail = data.email;
       this.userService.folders = data.folderNames;
+      console.log(this.userService.folders);
       console.log("user log in: ", this.userService.userId)
       // this.userService.inboxId = data.inboxId;
     })

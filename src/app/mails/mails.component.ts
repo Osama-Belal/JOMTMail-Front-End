@@ -45,6 +45,10 @@ export class MailsComponent implements OnInit {
 
   searchKeyword(keyword: string){
     console.log(keyword);
+    this.mailService.searchBySubject(this.activeFolder.folderId , keyword).subscribe(data => {
+      this.mails = data;
+      console.log(data);
+    })
   }
 
   getSelectedMails(selected: MailDTO[]){
@@ -154,10 +158,12 @@ export class MailsComponent implements OnInit {
     console.log(myMap);
     this.folders = [];
     myMap.forEach((value:any, key:any) =>{
-      let folder = new FolderDTO();
-      folder.folderId = value;
-      folder.folderName = key;
-      this.folders.push(folder);
+      if(key != "inbox" && key != "draft" && key != "trash" && key != "sent"){
+        let folder = new FolderDTO();
+        folder.folderId = value;
+        folder.folderName = key;
+        this.folders.push(folder);
+      }
     })
 
     this.mailService.getAllMail(myMap.get("inbox")).subscribe(data => {
