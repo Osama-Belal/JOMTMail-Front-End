@@ -26,6 +26,12 @@ li{
     transition: all .3s ease-in-out;
 }
 
+li.Unimportant{border-left: 5px solid rgb(92, 255, 42);background:rgba(92, 255, 42, 0.25);}
+li.Normal{border-left: 5px solid rgb(255, 234, 45);background: rgba(255, 234, 45, 0.25);}
+li.Important{border-left: 5px solid rgb(255, 161, 37);background: rgba(255, 161, 37, 0.25)}
+li.Urgent{border-left: 5px solid rgb(255, 39, 39);background: rgba(255, 39, 39, .15);}
+li.UnSet{border-left: 5px solid rgb(34, 222, 255);background: rgba(34, 222, 255, 0.25)}
+
 .flex input[type="checkbox"]:checked + .flex{
     outline: 10px solid red;
 }

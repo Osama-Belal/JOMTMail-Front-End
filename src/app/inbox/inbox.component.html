@@ -1,7 +1,7 @@
 
 <ul [ngClass]="mailActive ? 'active' : ''">
   <div id="pagination">
-    <mat-paginator #paginator class="demo-paginator" [length]="mails.length" [pageSize]="7"
+    <mat-paginator #paginator class="demo-paginator" [length]="mails.length" [pageSize]="10"
                 [showFirstLastButtons]="true" aria-label="Select page"></mat-paginator>
     
     <div class="flex allMails">
@@ -13,8 +13,9 @@
     </div>
   </div>
 
-  <li class="flex" *ngFor="let mail of mails.slice(paginator.pageIndex*7, (paginator.pageIndex+1)*7)" 
-      (click)="showMail(mail);mailActive = true" (dblclick)="openDialog('mail', mail)">
+  <li class="flex" *ngFor="let mail of mails.slice(paginator.pageIndex*10, (paginator.pageIndex+1)*10)" 
+      (click)="showMail(mail);mailActive = true" (dblclick)="openDialog('mail', mail)"
+      [ngClass]="getPriority(mail.priority)">
     
       <mat-checkbox id="selected" (change)="selectMail(mail)" 
       (ngModelChange)="isSelected(mail)" [ngModel]="isSelected(mail)"></mat-checkbox>
