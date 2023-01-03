@@ -89,7 +89,7 @@ export class MailsComponent implements OnInit {
   
   deleteSelectedMails(){
     for(var i = 0;i < this.mails.length;i++){
-      for(var selected of this.selectedMails){
+      for(let selected of this.selectedMails){
         if(JSON.stringify(this.mails[i]) == JSON.stringify(selected)){
           this.deleteDTO(selected)
           this.mails.splice(i, 1);
@@ -109,16 +109,14 @@ export class MailsComponent implements OnInit {
     else if(obj.name){
       this.contactService.delete(obj).subscribe(data => {});
       for(let i = 0;i < this.contacts.length;i++){
+        console.log(this.contacts, obj)
         if(JSON.stringify(obj) == JSON.stringify(this.contacts[i]))
           this.contacts.splice(i, 1);break;
       }
     }
     else if(obj.folderName){
       this.folderService.delete(obj).subscribe(data => {});
-      for(let i = 0;i < this.folders.length;i++){
-        if(JSON.stringify(obj) == JSON.stringify(this.folders[i]))
-          this.folders.splice(i, 1);break;
-      }
+      this.getAllFolders();
     }
   }
 
@@ -154,7 +152,7 @@ export class MailsComponent implements OnInit {
     console.log(this.userService.userId);
     let myMap = new Map(Object.entries(this.userService.folders));
     console.log(myMap);
-
+    this.folders = [];
     myMap.forEach((value:any, key:any) =>{
       let folder = new FolderDTO();
       folder.folderId = value;
