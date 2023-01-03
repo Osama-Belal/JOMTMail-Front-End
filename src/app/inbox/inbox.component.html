@@ -52,10 +52,11 @@
     </div>
   </div>
   <p>{{activeMail.content}}</p>
-  <button mat-icon-button *ngFor="let i of attachments">
+  
+  <button mat-button *ngFor="let i of attachments" class="attachment">
     <a href="{{i.url}}">
-      {{i.name}}
       <mat-icon>attach_file</mat-icon>
+      <span>{{i.name}}</span>
     </a>
 
   </button>

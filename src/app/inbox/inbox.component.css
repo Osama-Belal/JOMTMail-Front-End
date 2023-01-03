@@ -181,3 +181,23 @@ li.flex input{
     margin-inline-start: 0px !important;
     margin-inline-end: 0px !important;
 }
+
+.mailPreview.active .attachment{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mailPreview.active a{
+    color: blueviolet;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 1.5em;
+    font-family: 'Poppins', sans-serif; 
+    transition: all .2s ease-in-out;  
+}
+
+.mailPreview.active a:hover,
+.mailPreview.active a:focus{
+    color: #CA4B7C;    
+}
