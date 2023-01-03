@@ -107,6 +107,7 @@ export class MailsComponent implements OnInit {
     else if(obj.name){
       this.contactService.delete(obj).subscribe(data => {});
       for(let i = 0;i < this.contacts.length;i++){
+        console.log(this.contacts, obj)
         if(JSON.stringify(obj) == JSON.stringify(this.contacts[i]))
           this.contacts.splice(i, 1);break;
       }
