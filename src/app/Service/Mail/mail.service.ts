@@ -17,24 +17,34 @@ export class MailService {
 
   constructor(private http: HttpClient, private userService: UserService) { }
 
-  create(mail: MailDTO){
+  create(mail: MailDTO, files: FileList){
     let queryParams = new HttpParams();
     let formParams = new FormData();
-    console.log("create mail called: ", mail)
     formParams.append('mail', JSON.stringify(mail))
-
-      return this.http.post<MailDTO>(`${this._url}/${this.DTOType}/send`, formParams);
+    if(files){
+      for(let i = 0; i < files.length; i++){
+        formParams.append('file', <File>files.item(i), files.item(i)?.name)
+      }
+    }
+    console.log("parameters: ", formParams)
+    return this.http.post<MailDTO>(`${this._url}/${this.DTOType}/send`, formParams);
   }
   
-  postDraft(mail: MailDTO){
+  postDraft(mail: MailDTO, files: FileList){
     let queryParams = new HttpParams();
     let formParams = new FormData();
 
     formParams.append('mail', JSON.stringify(mail))
+    if(files){
+      for(let i = 0; i < files.length; i++){
+        formParams.append('file', <File>files.item(i), files.item(i)?.name)
+      }
+    }
     return this.http.post<MailDTO>(`${this._url}/draft/post`, formParams);
   }
 
   sendDraft(mail: MailDTO) {
+    console.log("send draft called with: ", mail);
     return this.http.post<MailDTO>(`${this._url}/draft/send`, mail);
   }
   

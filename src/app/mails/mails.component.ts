@@ -31,6 +31,7 @@ export class MailsComponent implements OnInit {
   selectedMails: MailDTO[] = [];
   activeFolder!: FolderDTO;
   activeContact!: ContactDTO;
+  userFiles!: FileList;
 
   constructor(public mailService: MailService, public userService: UserService, public contactService: ContactService, public folderService: FolderService) {}
   
@@ -64,19 +65,18 @@ export class MailsComponent implements OnInit {
   createMail(mail: MailDTO){
     if (mail.state == "draft")
       this.postDraft(mail)
-    
     else{
       console.log("mail created")
-      this.mailService.create(mail).subscribe(data => {
+      this.mailService.create(mail, this.userFiles).subscribe(data => {
         console.log(data);
         mail.mailId = data.mailId;
       })
-      this.mails.push(mail); 
+      // this.mails.push(mail); 
     }
   }
 
   postDraft(mail: MailDTO) {
-    this.mailService.postDraft(mail).subscribe(data =>{
+    this.mailService.postDraft(mail, this.userFiles).subscribe(data =>{
         console.log("draft created: ", data);
         mail.mailId = data.mailId;
     })
@@ -86,6 +86,11 @@ export class MailsComponent implements OnInit {
     this.folders.push(folder);
     console.log("folder created: ", folder)
   }
+
+  createFile(file: FileList){
+    this.userFiles = file;
+  }
+
   
   createContact(contact: ContactDTO){
     this.contacts.push(contact);

@@ -32,8 +32,8 @@
           (click)="deleteDialog()">Delete Now<mat-icon>delete</mat-icon>
         </button>
 
-        <input type="file" multiple="true" id="attachment" style="margin-left: 3em">
-        <label for="attachment" title="Attach Files"><mat-icon>attach_file</mat-icon></label>
+        <input type="file" multiple="true" id="attachment" style="margin-left: 3em" (change)="addFiles($event)">
+        <label for="attachment" title="Attach Files" ><mat-icon>attach_file</mat-icon></label>
 
         <mat-chip-listbox style="margin-left: 2em;" formControlName="priority">
           <mat-chip-option [value]="1">Unimportant</mat-chip-option>
